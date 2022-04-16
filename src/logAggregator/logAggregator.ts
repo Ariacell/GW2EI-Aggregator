@@ -1,5 +1,12 @@
 import { JSDOM } from 'jsdom';
+import { msToTime } from '../util';
 import { groupDataByCharacterName } from './groupDataByCharacterName';
+import {
+    calculateTotalActiveCombatTime,
+    calculateTotalCleanses,
+    calculateTotalOtherCleanse,
+    calculateTotalSelfCleanse,
+} from './playerLogic';
 
 //Not currently in use as dangerous parsing of HTML to retrieve logs is not a great solution
 export const aggregateHtmlLogs = (req: any, res: any) => {
@@ -30,5 +37,16 @@ export const aggregateJSONLogs = (req: any, res: any) => {
 
     const players = groupDataByCharacterName(logData);
 
-    return players;
+    const strippedDownStats = [];
+    for (const [key, value] of Object.entries(players)) {
+        strippedDownStats.push({
+            playerName: key,
+            playerCleanses: calculateTotalCleanses(value),
+            playerSelfCleanses: calculateTotalSelfCleanse(value),
+            playerOtherCleanses: calculateTotalOtherCleanse(value),
+            playerActiveTime: msToTime(calculateTotalActiveCombatTime(value)),
+        });
+    }
+
+    return strippedDownStats;
 };
