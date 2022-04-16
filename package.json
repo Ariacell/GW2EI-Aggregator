@@ -16,12 +16,16 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "helmet": "^5.0.2",
-    "husky": "^7.0.4"
+    "husky": "^7.0.4",
+    "jsdom": "^19.0.0",
+    "multer": "^1.4.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.4.1",
+    "@types/jsdom": "^16.2.14",
+    "@types/multer": "^1.4.7",
     "@types/node": "^17.0.24",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",

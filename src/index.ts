@@ -1,6 +1,7 @@
 import { startServer } from './startServer';
 import express from 'express';
-import { uploadFiles } from './logAggregator/logAggregator';
+import { aggregateJSONLogs } from './logAggregator/logAggregator';
+import multer from 'multer';
 
 const app = startServer();
 
@@ -9,4 +10,6 @@ app.use(express.static(__dirname + '/frontend'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/frontend/index.html'));
 
 //Use express app as intermediary while developing aggregator logic
-app.post('/upload_files', uploadFiles);
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
+app.post('/log-aggregator', upload.array('files'), (req, res) => res.send(aggregateJSONLogs(req, res)));
