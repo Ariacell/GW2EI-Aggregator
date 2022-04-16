@@ -3,6 +3,7 @@ import { msToTime } from '../util';
 import { groupDataByCharacterName } from './groupDataByCharacterName';
 import {
     calculateAverageDistToCom,
+    calculatePlayerDamageStats,
     calculateTotalActiveCombatTime,
     calculateTotalCleanses,
     calculateTotalOtherCleanse,
@@ -42,11 +43,13 @@ export const aggregateJSONLogs = (req: any, res: any) => {
     for (const [key, value] of Object.entries(players)) {
         strippedDownStats.push({
             playerName: key,
+            playerRoundsActive: value.length,
             playerCleanses: calculateTotalCleanses(value),
             playerSelfCleanses: calculateTotalSelfCleanse(value),
             playerOtherCleanses: calculateTotalOtherCleanse(value),
             playerActiveTime: msToTime(calculateTotalActiveCombatTime(value)),
             playerDistanceToCom: calculateAverageDistToCom(value),
+            ...calculatePlayerDamageStats(value),
         });
     }
 

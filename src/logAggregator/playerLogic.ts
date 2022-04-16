@@ -1,3 +1,4 @@
+import { AggregatePlayerDamageStats } from '../model/AggregatePlayerDamageStats';
 import { JsonPlayer } from '../model/JsonPlayer';
 
 export const calculateTotalActiveCombatTime = (playerLogs: JsonPlayer[]): number => {
@@ -31,3 +32,35 @@ export const calculateAverageDistToCom = (playerLogs: JsonPlayer[]): number => {
         miscStats.map((stats) => stats.distToCom).reduce((prev, curr) => prev + curr, 0.0) / miscStats.length,
     );
 };
+
+export const calculatePlayerDamageStats = (playerLogs: JsonPlayer[]): AggregatePlayerDamageStats => {
+    return playerLogs
+        .flatMap((log) => log.dpsAll)
+        .map((dpsStats) => {
+            return {
+                totalDamage: dpsStats.damage,
+                totalPowerDamage: dpsStats.powerDamage,
+                totalCondiDamage: dpsStats.condiDamage,
+                targetDamage: dpsStats.actorDamage,
+                targetPowerDamage: dpsStats.actorPowerDamage,
+                targetCondiDamage: dpsStats.actorCondiDamage,
+            };
+        })
+        .reduce(
+            (damageTotals, currentStats) => {
+                //@ts-ignore
+                Object.keys(damageTotals).forEach((key) => (damageTotals[key] += currentStats[key]));
+                return damageTotals;
+            },
+            {
+                totalDamage: 0,
+                totalPowerDamage: 0,
+                totalCondiDamage: 0,
+                targetDamage: 0,
+                targetPowerDamage: 0,
+                targetCondiDamage: 0,
+            },
+        );
+};
+
+export const calculateTotalRoundsActive = (playerLogs: JsonPlayer[], numberOfLogs: number) => {};

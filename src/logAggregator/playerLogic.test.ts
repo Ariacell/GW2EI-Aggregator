@@ -1,3 +1,5 @@
+import { AggregatePlayerDamageStats } from '../model/AggregatePlayerDamageStats';
+import { buildPlayerDpsStats } from '../model/JsonDpsStats';
 import { buildPlayerMiscStats } from '../model/JsonMiscPlayerStats';
 import { buildPlayer } from '../model/JsonPlayer';
 import { buildSupportStats } from '../model/JsonSupportStats';
@@ -7,6 +9,7 @@ import {
     calculateTotalOtherCleanse,
     calculateTotalSelfCleanse,
     calculateAverageDistToCom,
+    calculatePlayerDamageStats,
 } from './playerLogic';
 
 describe('player logic', () => {
@@ -139,6 +142,51 @@ describe('player logic', () => {
                     }),
                 ];
                 expect(calculateAverageDistToCom(playerLogs)).toEqual(150); // 300/2
+            });
+        });
+
+        describe('Offensive stats', () => {
+            describe('calculatePlayerDamageStats', () => {
+                it('should return total damage values for condi, power, both, and target specific', () => {
+                    const playerLogs = [
+                        buildPlayer({
+                            dpsAll: [
+                                buildPlayerDpsStats({
+                                    damage: 38,
+                                    condiDamage: 14,
+                                    powerDamage: 28,
+                                    actorDamage: 20,
+                                    actorPowerDamage: 11,
+                                    actorCondiDamage: 9,
+                                }),
+                            ],
+                        }),
+                        buildPlayer({
+                            dpsAll: [
+                                buildPlayerDpsStats({
+                                    damage: 34,
+                                    condiDamage: 14,
+                                    powerDamage: 20,
+                                    actorDamage: 15,
+                                    actorPowerDamage: 10,
+                                    actorCondiDamage: 5,
+                                }),
+                            ],
+                        }),
+                    ];
+
+                    const expectedDamage: AggregatePlayerDamageStats = {
+                        totalDamage: 72,
+                        totalCondiDamage: 28,
+                        totalPowerDamage: 48,
+                        targetDamage: 35,
+                        targetPowerDamage: 21,
+                        targetCondiDamage: 14,
+                    };
+
+                    const damageCalculation = calculatePlayerDamageStats(playerLogs);
+                    expect(damageCalculation).toEqual(expectedDamage);
+                });
             });
         });
     });
