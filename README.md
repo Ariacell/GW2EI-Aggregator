@@ -38,6 +38,11 @@ Possible implementations:
 
 -   Intended solution: provide an api for generating summaries of logs with totals/averages. Use the information from this API to generate a pretty report.
 
+-   Target MVP display:
+    [*] Table
+    [] Table but pretty
+    [] Table with sortable columns
+
 -   Target MVP stats:
     [*] time active
     [] fights participated in out of total

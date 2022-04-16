@@ -3,6 +3,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self';"/>
 </head>
 <link rel="stylesheet" type="text/css" href="styles.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 <body>
     <div class="container">
         <h1>GW2 Log Aggregator</h1>
@@ -14,8 +15,10 @@
             <button class="submit-btn" type='submit'>Generate Aggregated Report</button>
             <h2>Output Log</h2>
             <div id="aggregateLogTable"></div>
+            <p id="showData"></p>
         </form>
 
     </div>
     <script src='./script.js'></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 </body>
