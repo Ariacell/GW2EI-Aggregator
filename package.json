@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-api-template",
+  "name": "gw2ei-aggregator",
   "version": "0.0.1",
-  "description": "<<Description goes here>>",
+  "description": "A tool for aggregating multiple GW2EI parsed combat logs and for at-a-glance insights",
   "main": "index.js",
   "scripts": {
     "start:dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
