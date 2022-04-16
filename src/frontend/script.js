@@ -28,8 +28,7 @@ function getLogData() {
 }
 
 function createTableFromJSON(jsonData) {
-     // EXTRACT VALUE FOR HTML HEADER. 
-        // ('Book ID', 'Book Name', 'Category' and 'Price')
+
         var col = [];
         for (var i = 0; i < jsonData.length; i++) {
             for (var key in jsonData[i]) {
@@ -39,32 +38,45 @@ function createTableFromJSON(jsonData) {
             }
         }
 
-        // CREATE DYNAMIC TABLE.
         var table = document.createElement("table");
+        table.setAttribute('id', 'aggregateDataTable')
+        table.setAttribute('class', 'table table-sm table-striped table-hover dataTable')
 
         // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
 
-        var tr = table.insertRow(-1);                   // TABLE ROW.
+        var header =  document.createElement('thead')
+        var headerRow = document.createElement('tr');                   // TABLE ROW.
 
         for (var i = 0; i < col.length; i++) {
-            var th = document.createElement("th");      // TABLE HEADER.
-            th.innerHTML = col[i];
-            tr.appendChild(th);
+            var headingCell = document.createElement("td");      // TABLE HEADER.
+            headingCell.innerHTML = col[i];
+            headerRow.appendChild(headingCell);
         }
+        console.log(headerRow.innerHTML)
 
+        header.appendChild(headerRow);
+        table.appendChild(header);
+
+        let tb = document.createElement('tbody');
         // ADD JSON DATA TO THE TABLE AS ROWS.
         for (var i = 0; i < jsonData.length; i++) {
 
-            tr = table.insertRow(-1);
+            tr = document.createElement('tr');
 
             for (var j = 0; j < col.length; j++) {
                 var tabCell = tr.insertCell(-1);
                 tabCell.innerHTML = jsonData[i][col[j]];
             }
+
+            tb.appendChild(tr)
         }
+        table.appendChild(tb);
 
         // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
         var divContainer = document.getElementById("aggregateLogTable");
         divContainer.innerHTML = "";
         divContainer.appendChild(table);
-    }
+
+        $('#aggregateDataTable').DataTable();
+  }
+

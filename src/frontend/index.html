@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <head>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self';"/>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.datatables.net https://fonts.gstatic.com data: gap: https://code.jquery.com 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.datatables.net; script-src 'self' https://cdn.datatables.net https://code.jquery.com 'unsafe-inline' 'unsafe-eval';  media-src *">
 </head>
+<link id="theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.1/yeti/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" type="text/css" href="styles.css" />
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="tableStyles.css" />
 <body>
     <div class="container">
         <h1>GW2 Log Aggregator</h1>
@@ -13,12 +15,13 @@
                 <input id='files' type="file" multiple>
             </div>
             <button class="submit-btn" type='submit'>Generate Aggregated Report</button>
-            <h2>Output Log</h2>
-            <div id="aggregateLogTable"></div>
-            <p id="showData"></p>
         </form>
-
     </div>
+    <div class="d-flex justify-content-center">
+        <div id="aggregateLogTable" style="width: 90%; text-align: center;"></div>
+     </div>
+     
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src='./script.js'></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 </body>

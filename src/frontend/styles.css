@@ -1,6 +1,6 @@
 
 body {
-    background-color: rgb(6, 26, 27);
+    background-color: rgb(235, 238, 232);
 }
 * {
     box-sizing: border-box;
@@ -11,7 +11,8 @@ body {
 }
 .container h1 {
     text-align: center;
-    color: white;
+    color: rgb(34, 31, 31);
+    border-radius: 4px;
 }
 form {
     background-color: white;
