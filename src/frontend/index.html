@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self';"/>
+</head>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+<body>
+    <div class="container">
+        <h1>File Upload</h1>
+        <form id='form'>
+            <div class="input-group">
+                <label for='name'>Your name</label>
+                <input name='name' id='name' placeholder="Enter your name" />
+            </div>
+            <div class="input-group">
+                <label for='files'>Select files</label>
+                <input id='files' type="file" multiple>
+            </div>
+            <button class="submit-btn" type='submit'>Generate Aggregated Report</button>
+        </form>
+    </div>
+    <script src='./script.js'></script>
+</body>
