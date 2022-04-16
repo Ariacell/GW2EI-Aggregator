@@ -50,4 +50,4 @@ Possible implementations:
     [*] condis cleansed
     [] dmg taken
     [] dmg dealt
-    [] distance from pin
+    [*] distance from pin

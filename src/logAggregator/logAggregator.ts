@@ -2,6 +2,7 @@ import { JSDOM } from 'jsdom';
 import { msToTime } from '../util';
 import { groupDataByCharacterName } from './groupDataByCharacterName';
 import {
+    calculateAverageDistToCom,
     calculateTotalActiveCombatTime,
     calculateTotalCleanses,
     calculateTotalOtherCleanse,
@@ -45,6 +46,7 @@ export const aggregateJSONLogs = (req: any, res: any) => {
             playerSelfCleanses: calculateTotalSelfCleanse(value),
             playerOtherCleanses: calculateTotalOtherCleanse(value),
             playerActiveTime: msToTime(calculateTotalActiveCombatTime(value)),
+            playerDistanceToCom: calculateAverageDistToCom(value),
         });
     }
 

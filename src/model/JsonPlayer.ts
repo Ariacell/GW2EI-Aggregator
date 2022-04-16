@@ -1,5 +1,6 @@
 import { DefensesStats } from './JsonDefensiveStats';
 import { DpsAllStats } from './JsonDpsStats';
+import { JsonMiscPlayerStats } from './JsonMiscPlayerStats';
 import { SupportStats } from './JsonSupportStats';
 import { PlayerProfessions } from './Professions';
 
@@ -17,6 +18,7 @@ export type JsonPlayer = {
     support: SupportStats[];
     dpsAll: DpsAllStats[];
     defenses: DefensesStats[];
+    statsAll: JsonMiscPlayerStats[];
 };
 
 export const defaultJsonPlayer: JsonPlayer = {
@@ -33,6 +35,7 @@ export const defaultJsonPlayer: JsonPlayer = {
     support: [],
     dpsAll: [],
     defenses: [],
+    statsAll: [],
 };
 
 export const buildPlayer = (overrides?: { [key in keyof Partial<JsonPlayer>]: JsonPlayer[key] }) => {
