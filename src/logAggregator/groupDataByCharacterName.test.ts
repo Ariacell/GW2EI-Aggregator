@@ -20,7 +20,7 @@ const player4 = {
 } as JsonPlayer;
 
 describe('groupDataByCharacterName', () => {
-    it('should take a group of logs and return logs for each individual character', () => {
+    it('should take a group of logs and return logs split by each individual character', () => {
         const sampleLog1 = {
             players: [player1, player2, player3],
         } as JsonLogData;

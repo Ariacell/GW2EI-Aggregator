@@ -13,6 +13,16 @@ function submitForm(e) {
         method: 'POST',
         body: formData,
     })
-        .then((res) => console.log(res))
+        .then((res) => {
+        res.json().then(json => {
+          console.log(json)
+          window.logData=json
+          document.getElementById('aggregateLogTable').innerText = JSON.stringify(window.logData)
+        })
+      })
         .catch((err) => ("Error occured", err));
+}
+
+function getLogData() {
+  return window.logData;
 }

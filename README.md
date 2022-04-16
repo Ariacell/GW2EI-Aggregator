@@ -31,3 +31,11 @@ Test with
 ```bash
 yarn test
 ```
+
+## Roadmap
+
+Possible implementations:
+
+-   Intended solution: provide an api for generating summaries of logs with totals/averages. Use the information from this API to generate a pretty report.
+
+-   Target MVP stats: boonrip, condis cleansed, dmg taken, dmg dealt, distance from pin

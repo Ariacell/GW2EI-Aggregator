@@ -6,6 +6,7 @@ import { PlayerProfessions } from './Professions';
 export type JsonPlayer = {
     account: string;
     name: string;
+    activeTimes: number[];
     group: number;
     hasCommanderTag: boolean;
     profession: PlayerProfessions;
@@ -21,6 +22,7 @@ export type JsonPlayer = {
 export const defaultJsonPlayer: JsonPlayer = {
     account: 'someAccountName.1234',
     name: 'player 1',
+    activeTimes: [1234, 4567],
     group: 0,
     hasCommanderTag: false,
     profession: PlayerProfessions.ELEMENTALIST,
@@ -33,9 +35,9 @@ export const defaultJsonPlayer: JsonPlayer = {
     defenses: [],
 };
 
-export const buildPlayer = (overrides: { [key in keyof Partial<JsonPlayer>]: JsonPlayer[key] }) => {
+export const buildPlayer = (overrides?: { [key in keyof Partial<JsonPlayer>]: JsonPlayer[key] }) => {
     return {
         ...defaultJsonPlayer,
-        overrides,
+        ...overrides,
     };
 };
