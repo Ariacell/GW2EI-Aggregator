@@ -4,6 +4,7 @@ import { groupDataByCharacterName } from './groupDataByCharacterName';
 import {
     calculateAverageDistToCom,
     calculatePlayerDamageStats,
+    calculatePlayerTargetDamageStats,
     calculateTotalActiveCombatTime,
     calculateTotalCleanses,
     calculateTotalOtherCleanse,
@@ -44,14 +45,17 @@ export const aggregateJSONLogs = (req: any, res: any) => {
         strippedDownStats.push({
             playerName: key,
             playerRoundsActive: value.length,
+            playerActiveTime: msToTime(calculateTotalActiveCombatTime(value)),
             playerCleanses: calculateTotalCleanses(value),
             playerSelfCleanses: calculateTotalSelfCleanse(value),
             playerOtherCleanses: calculateTotalOtherCleanse(value),
-            playerActiveTime: msToTime(calculateTotalActiveCombatTime(value)),
             playerDistanceToCom: calculateAverageDistToCom(value),
             ...calculatePlayerDamageStats(value),
+            ...calculatePlayerTargetDamageStats(value),
         });
     }
+
+    console.log(strippedDownStats);
 
     return strippedDownStats;
 };

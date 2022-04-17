@@ -40,3 +40,32 @@ export const buildPlayerDpsStats = (overrides?: {
         ...overrides,
     };
 };
+
+export type DpsTargetStats = {
+    dps: number;
+    damage: number;
+    condiDps: number;
+    condiDamage: number;
+    powerDps: number;
+    powerDamage: number;
+    breakbarDamage: number;
+};
+
+export const defaultPlayerTargetDpsStats = {
+    dps: 0,
+    damage: 0,
+    condiDps: 0,
+    condiDamage: 0,
+    powerDps: 0,
+    powerDamage: 0,
+    breakbarDamage: 0,
+};
+
+export const buildPlayerTargetDpsStats = (overrides?: {
+    [key in keyof Partial<DpsTargetStats>]: DpsTargetStats[key];
+}) => {
+    return {
+        ...defaultPlayerDpsStats,
+        ...overrides,
+    };
+};

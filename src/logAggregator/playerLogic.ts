@@ -1,4 +1,4 @@
-import { AggregatePlayerDamageStats } from '../model/AggregatePlayerDamageStats';
+import { AggregatePlayerDamageStats, AggregatePlayerTargetDamageStats } from '../model/AggregatePlayerDamageStats';
 import { JsonPlayer } from '../model/JsonPlayer';
 
 export const calculateTotalActiveCombatTime = (playerLogs: JsonPlayer[]): number => {
@@ -41,9 +41,6 @@ export const calculatePlayerDamageStats = (playerLogs: JsonPlayer[]): AggregateP
                 totalDamage: dpsStats.damage,
                 totalPowerDamage: dpsStats.powerDamage,
                 totalCondiDamage: dpsStats.condiDamage,
-                targetDamage: dpsStats.actorDamage,
-                targetPowerDamage: dpsStats.actorPowerDamage,
-                targetCondiDamage: dpsStats.actorCondiDamage,
             };
         })
         .reduce(
@@ -56,9 +53,33 @@ export const calculatePlayerDamageStats = (playerLogs: JsonPlayer[]): AggregateP
                 totalDamage: 0,
                 totalPowerDamage: 0,
                 totalCondiDamage: 0,
-                targetDamage: 0,
-                targetPowerDamage: 0,
-                targetCondiDamage: 0,
+            },
+        );
+};
+
+export const calculatePlayerTargetDamageStats = (playerLogs: JsonPlayer[]): AggregatePlayerTargetDamageStats => {
+    return playerLogs
+        .flatMap((log) => log.dpsTargets)
+        .flat(1)
+        .map((targetDpsStats) => {
+            console.log(targetDpsStats);
+            return {
+                totalTargetDamage: targetDpsStats.damage,
+                totalTargetPowerDamage: targetDpsStats.powerDamage,
+                totalTargetCondiDamage: targetDpsStats.condiDamage,
+            };
+        })
+        .reduce(
+            (damageTotals, currentStats) => {
+                //@ts-ignore
+                Object.keys(damageTotals).forEach((key) => (damageTotals[key] += currentStats[key]));
+                console.log(currentStats);
+                return damageTotals;
+            },
+            {
+                totalTargetDamage: 0,
+                totalTargetPowerDamage: 0,
+                totalTargetCondiDamage: 0,
             },
         );
 };

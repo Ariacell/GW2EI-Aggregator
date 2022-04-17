@@ -1,9 +1,56 @@
 const form = document.getElementById("form");
+const outputSection= document.getElementById("outputSection");
+const loadingSpinner = document.getElementById("loadingSpinner");
 
 form.addEventListener("submit", submitForm);
 
+const baseTableFields = ['playerName', 'playerRoundsActive', 'playerActiveTime']
+const baseTableColumnsMapping = {
+    playerName: 'Player Name',
+    playerRoundsActive: 'Rounds Active',
+    playerActiveTime: 'Active Time',
+}
+
+const overviewTableFields = baseTableFields.concat(['playerDistanceToCom', 'totalDamage', 'targetDamage']);
+const overviewTableColumnsMapping = {
+    ...baseTableColumnsMapping,
+    playerDistanceToCom: 'Average Comm Distance',
+    totalDamage: 'Total Damage',
+    targetDamage: 'Total Target Damage',
+    //Damage taken
+    //Downs contribution
+    //Average Dps
+}
+
+const offenseTableFields = baseTableFields.concat(['totalDamage', 'totalPowerDamage', 'totalCondiDamage', 'totalTargetDamage', 'totalTargetPowerDamage', 'totalTargetCondiDamage']);
+const offenseTableColumnsMapping = {
+    ...baseTableColumnsMapping,
+    totalDamage: 'Damage',
+    totalPowerDamage: 'Power Damage',
+    totalCondiDamage: 'Condi Damage',
+    totalTargetDamage: 'Target Damage',
+    totalTargetPowerDamage: 'Target Power Damage',
+    totalTargetCondiDamage: 'Target Condi Damage',
+}
+
+const supportTableFields = baseTableFields.concat(['playerCleanses', 'playerSelfCleanses', 'playerOtherCleanses']);
+const supportTableColumnsMapping = {
+    ...baseTableColumnsMapping,
+    playerCleanses: 'Cleanses Total',
+    playerSelfCleanses: 'Cleanses Self',
+    playerOtherCleanses: 'Cleanses Other',
+}
+
+const tableIdToColumnTitlesMapping = {
+    'aggregateOverviewTable': overviewTableColumnsMapping,
+    'aggregateDamageTable': offenseTableColumnsMapping, 
+    'aggregateSupportTable': supportTableColumnsMapping
+}
+
 function submitForm(e) {
     e.preventDefault();
+    outputSection.classList.add("hidden");
+    loadingSpinner.classList.replace('d-none', 'd-flex');
     const files = document.getElementById("files");
     const formData = new FormData();
     for(let i =0; i < files.files.length; i++) {
@@ -17,29 +64,57 @@ function submitForm(e) {
         res.json().then(json => {
           console.log(json)
           window.logData=json
-          createTableFromJSON(window.logData)
+
+          //Create tables from response
+
+        //Overview Stats
+        var overviewCols = getTableStatsColumns(window.logData, overviewTableFields)
+        createTableFromJSON(window.logData, 'aggregateOverviewTable', overviewCols)
+
+          //Offensive Stats
+          var damageCols = getTableStatsColumns(window.logData, offenseTableFields)
+          createTableFromJSON(window.logData, 'aggregateDamageTable', damageCols)
+
+          //Support stats
+          var supportCols = getTableStatsColumns(window.logData, supportTableFields)
+          createTableFromJSON(window.logData, 'aggregateSupportTable', supportCols)
+
+          outputSection.classList.remove('hidden');
         })
       })
-        .catch((err) => ("Error occured", err));
+        .catch((err) => ("Error occured", err))
+        .finally(()=> (loadingSpinner.classList.replace('d-flex', 'd-none')));
 }
 
 function getLogData() {
   return window.logData;
 }
 
-function createTableFromJSON(jsonData) {
-
-        var col = [];
-        for (var i = 0; i < jsonData.length; i++) {
-            for (var key in jsonData[i]) {
-                if (col.indexOf(key) === -1) {
-                    col.push(key);
-                }
+function getTableStatsColumns(jsonData, statFieldNames) {
+    var col = [];
+    for (var i = 0; i < jsonData.length; i++) {
+        for (var key in jsonData[i]) {
+            if (col.indexOf(key) === -1 && statFieldNames.includes(key)) {
+                col.push(key);
             }
         }
+    }
+    return col;
+}
+
+function createTableFromJSON(jsonData, tableId, tableColumns) {
+
+        // var col = [];
+        // for (var i = 0; i < jsonData.length; i++) {
+        //     for (var key in jsonData[i]) {
+        //         if (col.indexOf(key) === -1) {
+        //             col.push(key);
+        //         }
+        //     }
+        // }
 
         var table = document.createElement("table");
-        table.setAttribute('id', 'aggregateDataTable')
+        table.setAttribute('id', tableId)
         table.setAttribute('class', 'table table-sm table-striped table-hover dataTable')
 
         // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
@@ -47,9 +122,9 @@ function createTableFromJSON(jsonData) {
         var header =  document.createElement('thead')
         var headerRow = document.createElement('tr');                   // TABLE ROW.
 
-        for (var i = 0; i < col.length; i++) {
+        for (var i = 0; i < tableColumns.length; i++) {
             var headingCell = document.createElement("td");      // TABLE HEADER.
-            headingCell.innerHTML = col[i];
+            headingCell.innerHTML =  tableIdToColumnTitlesMapping[tableId][tableColumns[i]];
             headerRow.appendChild(headingCell);
         }
         console.log(headerRow.innerHTML)
@@ -63,9 +138,9 @@ function createTableFromJSON(jsonData) {
 
             tr = document.createElement('tr');
 
-            for (var j = 0; j < col.length; j++) {
+            for (var j = 0; j < tableColumns.length; j++) {
                 var tabCell = tr.insertCell(-1);
-                tabCell.innerHTML = jsonData[i][col[j]];
+                tabCell.innerHTML = jsonData[i][tableColumns[j]];
             }
 
             tb.appendChild(tr)
@@ -73,10 +148,29 @@ function createTableFromJSON(jsonData) {
         table.appendChild(tb);
 
         // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-        var divContainer = document.getElementById("aggregateLogTable");
+        var divContainer = document.getElementById(`${tableId}Container`);
         divContainer.innerHTML = "";
         divContainer.appendChild(table);
 
-        $('#aggregateDataTable').DataTable();
+        $(`#${tableId}`).DataTable();
   }
 
+
+//   $(document).ready(function() {
+//     $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+//         $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+//     } );
+     
+//     $('table.table').DataTable( {
+//         scrollY:        200,
+//         scrollCollapse: true,
+//         paging:         false
+//     } );
+// } );
+
+
+$('#myTab a').on('click', function (event) {
+    event.preventDefault()
+    $(this).tab('show')
+  })
+  

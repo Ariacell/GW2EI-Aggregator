@@ -1,5 +1,5 @@
 import { DefensesStats } from './JsonDefensiveStats';
-import { DpsAllStats } from './JsonDpsStats';
+import { DpsAllStats, DpsTargetStats } from './JsonDpsStats';
 import { JsonMiscPlayerStats } from './JsonMiscPlayerStats';
 import { SupportStats } from './JsonSupportStats';
 import { PlayerProfessions } from './Professions';
@@ -17,6 +17,7 @@ export type JsonPlayer = {
     weapons: any[];
     support: SupportStats[];
     dpsAll: DpsAllStats[];
+    dpsTargets: DpsTargetStats[][]; //Dps to targets is a nested array of damage per target, per phase
     defenses: DefensesStats[];
     statsAll: JsonMiscPlayerStats[];
 };
@@ -34,6 +35,7 @@ export const defaultJsonPlayer: JsonPlayer = {
     weapons: [],
     support: [],
     dpsAll: [],
+    dpsTargets: [],
     defenses: [],
     statsAll: [],
 };

@@ -1,5 +1,5 @@
-import { AggregatePlayerDamageStats } from '../model/AggregatePlayerDamageStats';
-import { buildPlayerDpsStats } from '../model/JsonDpsStats';
+import { AggregatePlayerDamageStats, AggregatePlayerTargetDamageStats } from '../model/AggregatePlayerDamageStats';
+import { buildPlayerDpsStats, buildPlayerTargetDpsStats } from '../model/JsonDpsStats';
 import { buildPlayerMiscStats } from '../model/JsonMiscPlayerStats';
 import { buildPlayer } from '../model/JsonPlayer';
 import { buildSupportStats } from '../model/JsonSupportStats';
@@ -10,6 +10,7 @@ import {
     calculateTotalSelfCleanse,
     calculateAverageDistToCom,
     calculatePlayerDamageStats,
+    calculatePlayerTargetDamageStats,
 } from './playerLogic';
 
 describe('player logic', () => {
@@ -147,7 +148,7 @@ describe('player logic', () => {
 
         describe('Offensive stats', () => {
             describe('calculatePlayerDamageStats', () => {
-                it('should return total damage values for condi, power, both, and target specific', () => {
+                it('should return total damage values for condi, power, both', () => {
                     const playerLogs = [
                         buildPlayer({
                             dpsAll: [
@@ -155,9 +156,6 @@ describe('player logic', () => {
                                     damage: 38,
                                     condiDamage: 14,
                                     powerDamage: 28,
-                                    actorDamage: 20,
-                                    actorPowerDamage: 11,
-                                    actorCondiDamage: 9,
                                 }),
                             ],
                         }),
@@ -167,9 +165,6 @@ describe('player logic', () => {
                                     damage: 34,
                                     condiDamage: 14,
                                     powerDamage: 20,
-                                    actorDamage: 15,
-                                    actorPowerDamage: 10,
-                                    actorCondiDamage: 5,
                                 }),
                             ],
                         }),
@@ -179,12 +174,54 @@ describe('player logic', () => {
                         totalDamage: 72,
                         totalCondiDamage: 28,
                         totalPowerDamage: 48,
-                        targetDamage: 35,
-                        targetPowerDamage: 21,
-                        targetCondiDamage: 14,
                     };
 
                     const damageCalculation = calculatePlayerDamageStats(playerLogs);
+                    expect(damageCalculation).toEqual(expectedDamage);
+                });
+            });
+
+            describe('calculatePlayerTargetDamageStats', () => {
+                it('should return total target damage values (including condi, power)', () => {
+                    const playerLogs = [
+                        buildPlayer({
+                            dpsTargets: [
+                                [
+                                    buildPlayerTargetDpsStats({
+                                        damage: 27,
+                                        condiDamage: 7,
+                                        powerDamage: 21,
+                                    }),
+                                ],
+                                [
+                                    buildPlayerTargetDpsStats({
+                                        damage: 11,
+                                        condiDamage: 7,
+                                        powerDamage: 9,
+                                    }),
+                                ],
+                            ],
+                        }),
+                        buildPlayer({
+                            dpsTargets: [
+                                [
+                                    buildPlayerTargetDpsStats({
+                                        damage: 34,
+                                        condiDamage: 11,
+                                        powerDamage: 20,
+                                    }),
+                                ],
+                            ],
+                        }),
+                    ];
+
+                    const expectedDamage: AggregatePlayerTargetDamageStats = {
+                        totalTargetDamage: 72,
+                        totalTargetCondiDamage: 25,
+                        totalTargetPowerDamage: 50,
+                    };
+
+                    const damageCalculation = calculatePlayerTargetDamageStats(playerLogs);
                     expect(damageCalculation).toEqual(expectedDamage);
                 });
             });

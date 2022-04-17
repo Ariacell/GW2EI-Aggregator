@@ -8,12 +8,17 @@ body {
 .container {
     max-width: 500px;
     margin: 60px auto;
+    border-radius: 4px;
 }
 .container h1 {
     text-align: center;
     color: rgb(34, 31, 31);
-    border-radius: 4px;
 }
+
+.hidden {
+    display: none;
+}
+
 form {
     background-color: white;
     padding: 30px;
