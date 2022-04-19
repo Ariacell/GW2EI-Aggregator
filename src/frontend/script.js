@@ -22,10 +22,11 @@ const overviewTableColumnsMapping = {
     //Average Dps
 }
 
-const offenseTableFields = baseTableFields.concat(['totalDamage', 'totalPowerDamage', 'totalCondiDamage', 'totalTargetDamage', 'totalTargetPowerDamage', 'totalTargetCondiDamage']);
+const offenseTableFields = baseTableFields.concat(['totalDamage', 'playerAvgDamagePerSec', 'totalPowerDamage', 'totalCondiDamage', 'totalTargetDamage', 'totalTargetPowerDamage', 'totalTargetCondiDamage']);
 const offenseTableColumnsMapping = {
     ...baseTableColumnsMapping,
     totalDamage: 'Damage',
+    playerAvgDamagePerSec: 'Average Dps',
     totalPowerDamage: 'Power Damage',
     totalCondiDamage: 'Condi Damage',
     totalTargetDamage: 'Target Damage',
@@ -33,10 +34,11 @@ const offenseTableColumnsMapping = {
     totalTargetCondiDamage: 'Target Condi Damage',
 }
 
-const supportTableFields = baseTableFields.concat(['playerCleanses', 'playerSelfCleanses', 'playerOtherCleanses']);
+const supportTableFields = baseTableFields.concat(['playerCleanses', 'playerAvgCleansePerSec', 'playerSelfCleanses', 'playerOtherCleanses']);
 const supportTableColumnsMapping = {
     ...baseTableColumnsMapping,
     playerCleanses: 'Cleanses Total',
+    playerAvgCleansePerSec: 'Average Cleanse Per Sec',
     playerSelfCleanses: 'Cleanses Self',
     playerOtherCleanses: 'Cleanses Other',
 }
@@ -44,8 +46,25 @@ const supportTableColumnsMapping = {
 const tableIdToColumnTitlesMapping = {
     'aggregateOverviewTable': overviewTableColumnsMapping,
     'aggregateDamageTable': offenseTableColumnsMapping, 
-    'aggregateSupportTable': supportTableColumnsMapping
+    'aggregateSupportTable': supportTableColumnsMapping,
 }
+
+const msToTime = (s) => {
+    // Pad to 2 or 3 digits, default is 2
+    const pad = (n, z) => {
+        z = z || 2;
+        return ('00' + n).slice(-z);
+    };
+
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+
+    return pad(mins) + ':' + pad(secs) + ':' + pad(ms, 3) + 'ms';
+};
+
 
 function submitForm(e) {
     e.preventDefault();
@@ -62,6 +81,8 @@ function submitForm(e) {
     })
         .then((res) => {
         res.json().then(json => {
+
+          json.forEach(playerData => playerData.playerActiveTime = msToTime(playerData.playerActiveTime))
           console.log(json)
           window.logData=json
 
@@ -152,25 +173,20 @@ function createTableFromJSON(jsonData, tableId, tableColumns) {
         divContainer.innerHTML = "";
         divContainer.appendChild(table);
 
-        $(`#${tableId}`).DataTable();
-  }
+        $(`#${tableId}`).DataTable({
+            paging: false,
+            dom: 'lrt'
+        });
+    }
 
-
-//   $(document).ready(function() {
-//     $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
-//         $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-//     } );
-     
-//     $('table.table').DataTable( {
-//         scrollY:        200,
-//         scrollCollapse: true,
-//         paging:         false
-//     } );
-// } );
-
-
-$('#myTab a').on('click', function (event) {
-    event.preventDefault()
-    $(this).tab('show')
-  })
+// $('#topLevelTabs a').on('click', function (event) {
+//     event.preventDefault()
+//     $(this).tab('show')
+//   })
   
+
+// // $('#myTab a').on('click', function (event) {
+// //     event.preventDefault()
+// //     $(this).tab('show')
+// //   })
+

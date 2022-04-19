@@ -31,21 +31,44 @@
         <h2>
             Summary
         </h2>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+        <ul class="nav nav-tabs" id="topLevelTabs" role="tablist">
             <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="home" aria-selected="true">Overview</a>
+            <a class="nav-link active" id="main-tab" data-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="true">Main</a>
             </li>
             <li class="nav-item" role="presentation">
-            <a class="nav-link" id="offense-tab" data-toggle="tab" href="#offense" role="tab" aria-controls="offense" aria-selected="false">Offensive Stats</a>
-            </li>
-            <li class="nav-item" role="presentation">
-            <a class="nav-link" id="support-tab" data-toggle="tab" href="#support" role="tab" aria-controls="support" aria-selected="false">Support Stats</a>
+            <a class="nav-link" id="other-tab" data-toggle="tab" href="#buffs" role="tab" aria-controls="other" aria-selected="false">Boons/Buffs</a>
             </li>
         </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="home-tab"><div class="tab-pane" id="aggregateOverviewTableContainer"></div></div>
-            <div class="tab-pane fade" id="offense" role="tabpanel" aria-labelledby="offense-tab"><div class="tab-pane" id="aggregateDamageTableContainer"></div></div>
-            <div class="tab-pane fade" id="support" role="tabpanel" aria-labelledby="support-tab"><div class="tab-pane" id="aggregateSupportTableContainer"></div></div>
+        <div class="tab-content" id="topLevelTabsContent">
+            <div class="tab-pane fade show active" id="main"  role="tabpanel" aria-labelledby="main-tab" ><div class="tab-pane" id="mainTabContainer">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="damage-tab" data-toggle="tab" href="#damage" role="tab" aria-controls="offense" aria-selected="false">Offensive Stats</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="support-tab" data-toggle="tab" href="#support" role="tab" aria-controls="support" aria-selected="false">Support Stats</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="home-tab"><div class="tab-pane" id="aggregateOverviewTableContainer"></div></div>
+                    <div class="tab-pane fade" id="damage" role="tabpanel" aria-labelledby="damage-tab"><div class="tab-pane" id="aggregateDamageTableContainer"></div></div>
+                    <div class="tab-pane fade" id="support" role="tabpanel" aria-labelledby="support-tab"><div class="tab-pane" id="aggregateSupportTableContainer"></div></div>
+                </div>
+            </div></div>
+            <div class="tab-pane fade"             id="buffs" role="tabpanel" aria-labelledby="buffs-tab"><div class="tab-pane" id="otherTabContainer">
+                <ul class="nav nav-tabs" id="buffTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="boons-overview" data-toggle="tab" href="#boons" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="boons" role="tabpanel" aria-labelledby="home-tab"><div class="tab-pane" id="aggregateBoonsTableContainer">Hi this will be boons table</div></div>
+                </div>
+            </div></div>
         </div>
     </div>
     

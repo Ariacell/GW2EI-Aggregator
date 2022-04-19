@@ -1,5 +1,7 @@
 import { JSDOM } from 'jsdom';
+import { AggregateLogResponse, AggregatePlayerBaseResponse } from '../model/AggregatePlayerStats';
 import { msToTime } from '../util';
+import { calculatePlayerTimeAverageData } from './calculateAverageData';
 import { groupDataByCharacterName } from './groupDataByCharacterName';
 import {
     calculateAverageDistToCom,
@@ -40,12 +42,12 @@ export const aggregateJSONLogs = (req: any, res: any) => {
 
     const players = groupDataByCharacterName(logData);
 
-    const strippedDownStats = [];
+    const strippedDownStats: AggregatePlayerBaseResponse[] = [];
     for (const [key, value] of Object.entries(players)) {
         strippedDownStats.push({
             playerName: key,
             playerRoundsActive: value.length,
-            playerActiveTime: msToTime(calculateTotalActiveCombatTime(value)),
+            playerActiveTime: calculateTotalActiveCombatTime(value),
             playerCleanses: calculateTotalCleanses(value),
             playerSelfCleanses: calculateTotalSelfCleanse(value),
             playerOtherCleanses: calculateTotalOtherCleanse(value),
@@ -54,8 +56,12 @@ export const aggregateJSONLogs = (req: any, res: any) => {
             ...calculatePlayerTargetDamageStats(value),
         });
     }
+    const statsStitchedAverages: AggregateLogResponse[] = [];
+    strippedDownStats.forEach((playerStats) => {
+        statsStitchedAverages.push({ ...playerStats, ...calculatePlayerTimeAverageData(playerStats) });
+    });
 
-    console.log(strippedDownStats);
+    console.log('Returning aggregated stats: ', statsStitchedAverages);
 
-    return strippedDownStats;
+    return statsStitchedAverages;
 };

@@ -62,7 +62,6 @@ export const calculatePlayerTargetDamageStats = (playerLogs: JsonPlayer[]): Aggr
         .flatMap((log) => log.dpsTargets)
         .flat(1)
         .map((targetDpsStats) => {
-            console.log(targetDpsStats);
             return {
                 totalTargetDamage: targetDpsStats.damage,
                 totalTargetPowerDamage: targetDpsStats.powerDamage,
@@ -73,7 +72,6 @@ export const calculatePlayerTargetDamageStats = (playerLogs: JsonPlayer[]): Aggr
             (damageTotals, currentStats) => {
                 //@ts-ignore
                 Object.keys(damageTotals).forEach((key) => (damageTotals[key] += currentStats[key]));
-                console.log(currentStats);
                 return damageTotals;
             },
             {
