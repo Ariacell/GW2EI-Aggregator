@@ -1,7 +1,7 @@
 import { AggregatePlayerDamageStats, AggregatePlayerTargetDamageStats } from './AggregatePlayerDamageStats';
 import { AggregatePlayerStatsTimeAvg } from './AggregatePlayerStatsTimeAvg';
 import { AggregatePlayerSupportStats } from './AggregatePlayerSupportStats';
-import { AggregatedBuffUptimeStats } from './JsonBuffStats';
+import { AggregatedBuffGenerationStats, AggregatedBuffUptimeStats } from './JsonBuffStats';
 
 export type AggregatePlayerBaseStats = {
     playerName: string;
@@ -15,7 +15,7 @@ export type AggregatePlayerOverviewStats = {
 
 export type AggregatePlayerBoonsStats = {
     playerBoons: { [key: string]: AggregatedBuffUptimeStats };
-    playerBoonsGroup: { [key: string]: AggregatedBuffUptimeStats };
+    playerBoonsGroup: { [key: string]: AggregatedBuffGenerationStats };
     playerBoonsSquad: { [key: string]: AggregatedBuffUptimeStats };
 };
 

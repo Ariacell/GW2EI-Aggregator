@@ -1,6 +1,10 @@
 import { JSDOM } from 'jsdom';
 import { AggregateLogResponse, AggregatePlayerBaseResponse } from '../model/AggregatePlayerStats';
-import { calculatePlayerBoonStats } from './boonsCalculations';
+import {
+    calculatePlayerBoonStats,
+    calculatePlayerGroupBoonStats,
+    calculatePlayerSquadBoonStats,
+} from './boonsCalculations';
 import { calculatePlayerTimeAverageData } from './calculateAverageData';
 import { groupDataByCharacterName } from './groupDataByCharacterName';
 import {
@@ -53,8 +57,10 @@ export const aggregateJSONLogs = (req: any, res: any) => {
             playerOtherCleanses: calculateTotalOtherCleanse(value),
             playerDistanceToCom: calculateAverageDistToCom(value),
             playerBoons: { ...calculatePlayerBoonStats(value) },
-            playerBoonsGroup: { ...calculatePlayerBoonStats(value) },
-            playerBoonsSquad: { ...calculatePlayerBoonStats(value) },
+            //@ts-ignore
+            playerBoonsGroup: { ...calculatePlayerGroupBoonStats(value) },
+            //@ts-ignore
+            playerBoonsSquad: { ...calculatePlayerSquadBoonStats(value) },
             ...calculatePlayerDamageStats(value),
             ...calculatePlayerTargetDamageStats(value),
         });

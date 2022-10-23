@@ -56,8 +56,21 @@ const supportTableColumnsMapping = {
     playerOtherCleanses: 'Cleanses Other',
 };
 
-const baseBoonTableFields = ['717'];
-const baseBoonsColumnMapping = { 717: 'Protection' };
+const baseBoonTableFields = ['717', '718', '719', '725', '726', '740', '743', '873', '1122', '1187', '5974', '13017'];
+const baseBoonsColumnMapping = {
+    717: 'Protection',
+    718: 'Regeneration',
+    719: 'Swiftness',
+    725: 'Fury',
+    726: 'Vigor',
+    740: 'Might',
+    743: 'Aegis',
+    873: 'Resolution',
+    1122: 'Stability',
+    1187: 'Quickness',
+    5974: 'Superspeed',
+    13017: 'Stealth',
+};
 const boonsTableFields = baseTableFields.concat(baseBoonTableFields);
 const boonsTableColumnsMapping = {
     ...baseTableColumnsMapping,
@@ -138,6 +151,26 @@ function submitForm(e) {
                     getBoonTableStatsColumns(window.logData, boonsTableFields),
                 );
                 createBoonTableFromJSON(window.logData, 'aggregateBoonsTable', boonCols);
+                //Group Boon generation stats
+                var groupBoonCols = getTableStatsColumns(window.logData, baseTableFields).concat(
+                    getGroupBoonTableStatsColumns(window.logData, boonsGroupTableFields),
+                );
+                createBoonGenerationTableFromJSON(
+                    window.logData,
+                    'aggregateBoonsGroupTable',
+                    groupBoonCols,
+                    'playerBoonsGroup',
+                );
+                //Squad Boon generation stats
+                var squadBoonCols = getTableStatsColumns(window.logData, baseTableFields).concat(
+                    getGroupBoonTableStatsColumns(window.logData, boonsSquadTableFields),
+                );
+                createBoonGenerationTableFromJSON(
+                    window.logData,
+                    'aggregateBoonsSquadTable',
+                    squadBoonCols,
+                    'playerBoonsSquad',
+                );
 
                 outputSection.classList.remove('hidden');
             });
@@ -166,6 +199,18 @@ function getBoonTableStatsColumns(jsonData, statFieldNames) {
     var col = [];
     for (var i = 0; i < jsonData.length; i++) {
         for (var key in jsonData[i].playerBoons) {
+            if (col.indexOf(key) === -1 && statFieldNames.includes(key)) {
+                col.push(key);
+            }
+        }
+    }
+    return col;
+}
+
+function getGroupBoonTableStatsColumns(jsonData, statFieldNames) {
+    var col = [];
+    for (var i = 0; i < jsonData.length; i++) {
+        for (var key in jsonData[i].playerBoonsGroup) {
             if (col.indexOf(key) === -1 && statFieldNames.includes(key)) {
                 col.push(key);
             }
@@ -244,9 +289,56 @@ function createBoonTableFromJSON(jsonData, tableId, tableColumns) {
         tr = document.createElement('tr');
 
         for (var j = 0; j < tableColumns.length; j++) {
-            console.log(jsonData[i].playerBoons[tableColumns[j]]);
             var tabCell = tr.insertCell(-1);
             tabCell.innerHTML = jsonData[i][tableColumns[j]] || jsonData[i].playerBoons[tableColumns[j]].uptime;
+        }
+
+        tb.appendChild(tr);
+    }
+    table.appendChild(tb);
+
+    // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+    var divContainer = document.getElementById(`${tableId}Container`);
+    divContainer.innerHTML = '';
+    divContainer.appendChild(table);
+
+    $(`#${tableId}`).DataTable({
+        paging: false,
+        dom: 'lrt',
+    });
+}
+
+function createBoonGenerationTableFromJSON(jsonData, tableId, tableColumns, dataKey) {
+    var table = document.createElement('table');
+    table.setAttribute('id', tableId);
+    table.setAttribute('class', 'table table-sm table-striped table-hover dataTable');
+
+    // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+    var header = document.createElement('thead');
+    var headerRow = document.createElement('tr'); // TABLE ROW.
+
+    for (var i = 0; i < tableColumns.length; i++) {
+        var headingCell = document.createElement('td'); // TABLE HEADER.
+        console.log('MAPPING', tableIdToColumnTitlesMapping);
+        console.log('tableId', tableId);
+        console.log('cols', tableColumns);
+        headingCell.innerHTML = tableIdToColumnTitlesMapping[tableId][tableColumns[i]];
+        headerRow.appendChild(headingCell);
+    }
+
+    header.appendChild(headerRow);
+    table.appendChild(header);
+
+    let tb = document.createElement('tbody');
+    // ADD JSON DATA TO THE TABLE AS ROWS.
+    for (var i = 0; i < jsonData.length; i++) {
+        tr = document.createElement('tr');
+
+        for (var j = 0; j < tableColumns.length; j++) {
+            var tabCell = tr.insertCell(-1);
+            tabCell.innerHTML =
+                jsonData[i][tableColumns[j]] || jsonData[i][dataKey][tableColumns[j]]?.generation || 'N/A';
         }
 
         tb.appendChild(tr);

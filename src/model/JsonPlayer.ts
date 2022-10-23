@@ -1,4 +1,4 @@
-import { BuffUptime } from './JsonBuffStats';
+import { BuffGeneration, BuffUptime } from './JsonBuffStats';
 import { DefensesStats } from './JsonDefensiveStats';
 import { DpsAllStats, DpsTargetStats } from './JsonDpsStats';
 import { JsonMiscPlayerStats } from './JsonMiscPlayerStats';
@@ -22,6 +22,8 @@ export type JsonPlayer = {
     defenses: DefensesStats[];
     statsAll: JsonMiscPlayerStats[];
     buffUptimes: BuffUptime[];
+    groupBuffs: BuffGeneration[];
+    squadBuffs: BuffGeneration[];
 };
 
 export const defaultJsonPlayer: JsonPlayer = {
@@ -41,6 +43,8 @@ export const defaultJsonPlayer: JsonPlayer = {
     defenses: [],
     statsAll: [],
     buffUptimes: [],
+    groupBuffs: [],
+    squadBuffs: [],
 };
 
 export const buildPlayer = (overrides?: { [key in keyof Partial<JsonPlayer>]: JsonPlayer[key] }) => {

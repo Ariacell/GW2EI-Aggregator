@@ -48,17 +48,19 @@ Possible implementations:
 
 - [x] time active
 - [x] fights participated in out of total
+- [x] average distance to commander
 - [ ] boonrip
 - [x] condis cleansed
-- [ ] boon gen group
+- [x] boon gen group
+- [ ] non same server players in squad added to data
 - [ ] boon gen squad
 - [ ] dmg taken
 - [x] dmg dealt
-- [ ] dps out
+- [x] dps out
 - [ ] dps in
 - [ ] buffs
 - [x] distance from pin
-- [ ] target damage (damage done to the player agent's target, array of sequential targets over course of round)
+- [x] target damage (damage done to the player agent's target, array of sequential targets over course of round)
 
 ### Out of scope for now:
 
