@@ -1,6 +1,7 @@
 import { AggregatePlayerDamageStats, AggregatePlayerTargetDamageStats } from './AggregatePlayerDamageStats';
 import { AggregatePlayerStatsTimeAvg } from './AggregatePlayerStatsTimeAvg';
 import { AggregatePlayerSupportStats } from './AggregatePlayerSupportStats';
+import { AggregatedBuffUptimeStats } from './JsonBuffStats';
 
 export type AggregatePlayerBaseStats = {
     playerName: string;
@@ -12,11 +13,18 @@ export type AggregatePlayerOverviewStats = {
     playerDistanceToCom: number;
 };
 
+export type AggregatePlayerBoonsStats = {
+    playerBoons: { [key: string]: AggregatedBuffUptimeStats };
+    playerBoonsGroup: { [key: string]: AggregatedBuffUptimeStats };
+    playerBoonsSquad: { [key: string]: AggregatedBuffUptimeStats };
+};
+
 export type AggregatePlayerBaseResponse = AggregatePlayerBaseStats &
     AggregatePlayerOverviewStats &
     AggregatePlayerSupportStats &
     AggregatePlayerDamageStats &
-    AggregatePlayerTargetDamageStats;
+    AggregatePlayerTargetDamageStats &
+    AggregatePlayerBoonsStats;
 
 const defaultAggregatePlayerBaseResponse: AggregatePlayerBaseResponse = {
     playerName: 'some player',
@@ -32,6 +40,9 @@ const defaultAggregatePlayerBaseResponse: AggregatePlayerBaseResponse = {
     totalTargetDamage: 0,
     totalTargetPowerDamage: 0,
     totalTargetCondiDamage: 0,
+    playerBoons: {},
+    playerBoonsSquad: {},
+    playerBoonsGroup: {},
 };
 
 export const buildAggregatePlayerBaseResponse = (overrides?: {
@@ -48,4 +59,5 @@ export type AggregateLogResponse = AggregatePlayerBaseStats &
     AggregatePlayerSupportStats &
     AggregatePlayerDamageStats &
     AggregatePlayerTargetDamageStats &
+    AggregatePlayerBoonsStats &
     AggregatePlayerStatsTimeAvg;

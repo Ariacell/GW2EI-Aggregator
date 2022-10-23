@@ -1,3 +1,4 @@
+import { BuffUptime } from './JsonBuffStats';
 import { DefensesStats } from './JsonDefensiveStats';
 import { DpsAllStats, DpsTargetStats } from './JsonDpsStats';
 import { JsonMiscPlayerStats } from './JsonMiscPlayerStats';
@@ -20,6 +21,7 @@ export type JsonPlayer = {
     dpsTargets: DpsTargetStats[][]; //Dps to targets is a nested array of damage per target, per phase
     defenses: DefensesStats[];
     statsAll: JsonMiscPlayerStats[];
+    buffUptimes: BuffUptime[];
 };
 
 export const defaultJsonPlayer: JsonPlayer = {
@@ -38,6 +40,7 @@ export const defaultJsonPlayer: JsonPlayer = {
     dpsTargets: [],
     defenses: [],
     statsAll: [],
+    buffUptimes: [],
 };
 
 export const buildPlayer = (overrides?: { [key in keyof Partial<JsonPlayer>]: JsonPlayer[key] }) => {

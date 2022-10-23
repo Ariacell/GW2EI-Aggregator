@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom';
 import { AggregateLogResponse, AggregatePlayerBaseResponse } from '../model/AggregatePlayerStats';
-import { msToTime } from '../util';
+import { calculatePlayerBoonStats } from './boonsCalculations';
 import { calculatePlayerTimeAverageData } from './calculateAverageData';
 import { groupDataByCharacterName } from './groupDataByCharacterName';
 import {
@@ -52,6 +52,9 @@ export const aggregateJSONLogs = (req: any, res: any) => {
             playerSelfCleanses: calculateTotalSelfCleanse(value),
             playerOtherCleanses: calculateTotalOtherCleanse(value),
             playerDistanceToCom: calculateAverageDistToCom(value),
+            playerBoons: { ...calculatePlayerBoonStats(value) },
+            playerBoonsGroup: { ...calculatePlayerBoonStats(value) },
+            playerBoonsSquad: { ...calculatePlayerBoonStats(value) },
             ...calculatePlayerDamageStats(value),
             ...calculatePlayerTargetDamageStats(value),
         });
@@ -61,7 +64,7 @@ export const aggregateJSONLogs = (req: any, res: any) => {
         statsStitchedAverages.push({ ...playerStats, ...calculatePlayerTimeAverageData(playerStats) });
     });
 
-    console.log('Returning aggregated stats: ', statsStitchedAverages);
+    console.log('Returning aggregated stats: ', statsStitchedAverages[0]);
 
     return statsStitchedAverages;
 };

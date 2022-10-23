@@ -1,4 +1,5 @@
 import { AggregatePlayerDamageStats, AggregatePlayerTargetDamageStats } from '../model/AggregatePlayerDamageStats';
+import { AggregatedBuffUptimeStats, BuffUptimeStats, StrippedDownBuffUptimeStats } from '../model/JsonBuffStats';
 import { JsonPlayer } from '../model/JsonPlayer';
 
 export const calculateTotalActiveCombatTime = (playerLogs: JsonPlayer[]): number => {

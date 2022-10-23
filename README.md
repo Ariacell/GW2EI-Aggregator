@@ -36,28 +36,30 @@ yarn test
 
 Possible implementations:
 
--   Intended solution: provide an api for generating summaries of logs with totals/averages. Use the information from this API to generate a pretty report.
+- Intended solution: provide an api for generating summaries of logs with totals/averages. Use the information from this API to generate a pretty report.
 
 ### Target MVP display:
 
--   [x] Table
--   [x] Table with sortable columns
--   [ ] Table but toggleable displays
+- [x] Table
+- [x] Table with sortable columns
+- [ ] Table but toggleable displays
 
 ### Target MVP stats:
 
--   [x] time active
--   [x] fights participated in out of total
--   [ ] boonrip
--   [x] condis cleansed
--   [ ] dmg taken
--   [x] dmg dealt
--   [ ] dps out
--   [ ] dps in
--   [ ] buffs
--   [x] distance from pin
--   [ ] target damage (damage done to the player agent's target, array of sequential targets over course of round)
+- [x] time active
+- [x] fights participated in out of total
+- [ ] boonrip
+- [x] condis cleansed
+- [ ] boon gen group
+- [ ] boon gen squad
+- [ ] dmg taken
+- [x] dmg dealt
+- [ ] dps out
+- [ ] dps in
+- [ ] buffs
+- [x] distance from pin
+- [ ] target damage (damage done to the player agent's target, array of sequential targets over course of round)
 
 ### Out of scope for now:
 
--   Subgroup parsing, lots of messiness
+- Subgroup parsing, lots of messiness
