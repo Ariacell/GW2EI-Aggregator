@@ -1,4 +1,6 @@
-# Template repo for Node APIs with ts-jest support
+# Aggregate WvW fight logs
+
+Thrown together in 3-4 nights, this is a hacky project with a simple front-end sample consumer showing what a log aggregator for gw2 logs *could* look like. Some bugs at the moment with the boon averaging.
 
 ## Setup
 
