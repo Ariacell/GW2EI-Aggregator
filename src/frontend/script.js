@@ -11,10 +11,16 @@ const baseTableColumnsMapping = {
     playerActiveTime: 'Active Time',
 };
 
-const overviewTableFields = baseTableFields.concat(['playerDistanceToCom', 'totalDamage', 'targetDamage']);
+const overviewTableFields = baseTableFields.concat([
+    'playerDistanceToCom',
+    'playerDistanceToStack',
+    'totalDamage',
+    'targetDamage',
+]);
 const overviewTableColumnsMapping = {
     ...baseTableColumnsMapping,
     playerDistanceToCom: 'Average Comm Distance',
+    playerDistanceToStack: 'Average Stack Distance',
     totalDamage: 'Total Damage',
     targetDamage: 'Total Target Damage',
     //Damage taken
@@ -290,7 +296,8 @@ function createBoonTableFromJSON(jsonData, tableId, tableColumns) {
 
         for (var j = 0; j < tableColumns.length; j++) {
             var tabCell = tr.insertCell(-1);
-            tabCell.innerHTML = jsonData[i][tableColumns[j]] || jsonData[i].playerBoons[tableColumns[j]].uptime;
+            tabCell.innerHTML =
+                jsonData[i][tableColumns[j]] || jsonData[i].playerBoons[tableColumns[j]]?.uptime || 'N/A';
         }
 
         tb.appendChild(tr);

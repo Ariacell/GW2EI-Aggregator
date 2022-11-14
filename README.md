@@ -1,6 +1,6 @@
 # Aggregate WvW fight logs
 
-Thrown together in 3-4 nights, this is a hacky project with a simple front-end sample consumer showing what a log aggregator for gw2 logs *could* look like. Some bugs at the moment with the boon averaging.
+Thrown together in 3-4 nights, this is a hacky project with a simple front-end sample consumer showing what a log aggregator for gw2 logs _could_ look like. Some bugs at the moment with the boon averaging.
 
 ## Setup
 
@@ -67,3 +67,24 @@ Possible implementations:
 ### Out of scope for now:
 
 - Subgroup parsing, lots of messiness
+
+### Spreadsheet
+
+- [x] Time
+- [x] DPS
+- [ ] Damage Taken
+- [ ] Damage Taken / TIme
+- [ ] Deaths
+- [ ] Deaths / Minute
+- [ ] Downs
+- [ ] Downs / Minute
+- [ ] Interrupts
+- [ ] Interrupts / Minute
+- [ ] Cleanse Others
+- [ ] Cleanse / Minute
+- [ ] Boonrip
+- [ ] Boonrip / Minute
+- [ ] Downed Targets
+- [ ] Avg Distance Center Group
+- [ ] Avg Distance Tag
+- [ ] Attacks Blocked

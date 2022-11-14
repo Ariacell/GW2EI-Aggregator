@@ -9,6 +9,7 @@ import { calculatePlayerTimeAverageData } from './calculateAverageData';
 import { groupDataByCharacterName } from './groupDataByCharacterName';
 import {
     calculateAverageDistToCom,
+    calculateAverageDistToSquad,
     calculatePlayerDamageStats,
     calculatePlayerTargetDamageStats,
     calculateTotalActiveCombatTime,
@@ -56,6 +57,7 @@ export const aggregateJSONLogs = (req: any, res: any) => {
             playerSelfCleanses: calculateTotalSelfCleanse(value),
             playerOtherCleanses: calculateTotalOtherCleanse(value),
             playerDistanceToCom: calculateAverageDistToCom(value),
+            playerDistanceToStack: calculateAverageDistToSquad(value),
             playerBoons: { ...calculatePlayerBoonStats(value) },
             //@ts-ignore
             playerBoonsGroup: { ...calculatePlayerGroupBoonStats(value) },

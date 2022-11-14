@@ -34,6 +34,13 @@ export const calculateAverageDistToCom = (playerLogs: JsonPlayer[]): number => {
     );
 };
 
+export const calculateAverageDistToSquad = (playerLogs: JsonPlayer[]): number => {
+    const miscStats = playerLogs.flatMap((log) => log.statsAll).filter((stats) => stats.stackDist != 0);
+    return Math.round(
+        miscStats.map((stats) => stats.stackDist).reduce((prev, curr) => prev + curr, 0.0) / miscStats.length,
+    );
+};
+
 export const calculatePlayerDamageStats = (playerLogs: JsonPlayer[]): AggregatePlayerDamageStats => {
     return playerLogs
         .flatMap((log) => log.dpsAll)
