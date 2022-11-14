@@ -11,10 +11,13 @@ import {
     calculateAverageDistToCom,
     calculateAverageDistToSquad,
     calculatePlayerDamageStats,
+    calculatePlayerDamageTakenStats as calculatePlayerDefensiveStats,
     calculatePlayerTargetDamageStats,
     calculateTotalActiveCombatTime,
     calculateTotalCleanses,
     calculateTotalOtherCleanse,
+    calculateTotalPlayerDeaths,
+    calculateTotalPlayerDowns,
     calculateTotalSelfCleanse,
 } from './playerLogic';
 
@@ -58,11 +61,13 @@ export const aggregateJSONLogs = (req: any, res: any) => {
             playerOtherCleanses: calculateTotalOtherCleanse(value),
             playerDistanceToCom: calculateAverageDistToCom(value),
             playerDistanceToStack: calculateAverageDistToSquad(value),
+            // 'playerAvgDamageTaken',
             playerBoons: { ...calculatePlayerBoonStats(value) },
             //@ts-ignore
             playerBoonsGroup: { ...calculatePlayerGroupBoonStats(value) },
             //@ts-ignore
             playerBoonsSquad: { ...calculatePlayerSquadBoonStats(value) },
+            ...calculatePlayerDefensiveStats(value),
             ...calculatePlayerDamageStats(value),
             ...calculatePlayerTargetDamageStats(value),
         });

@@ -72,19 +72,19 @@ Possible implementations:
 
 - [x] Time
 - [x] DPS
-- [ ] Damage Taken
-- [ ] Damage Taken / TIme
-- [ ] Deaths
-- [ ] Deaths / Minute
-- [ ] Downs
-- [ ] Downs / Minute
-- [ ] Interrupts
-- [ ] Interrupts / Minute
-- [ ] Cleanse Others
-- [ ] Cleanse / Minute
+- [x] Damage Taken
+- [x] Damage Taken / TIme
+- [x] Deaths
+- [x] Deaths / Minute
+- [x] Downs
+- [x] Downs / Minute
+- [ ] Interrupts on enemy
+- [ ] Interrupts on enemy / Minute
+- [x] Cleanse Others
+- [x] Cleanse / Minute
 - [ ] Boonrip
 - [ ] Boonrip / Minute
 - [ ] Downed Targets
-- [ ] Avg Distance Center Group
-- [ ] Avg Distance Tag
-- [ ] Attacks Blocked
+- [x] Avg Distance Center Group
+- [x] Avg Distance Tag
+- [ ] Attacks Blocked (offensive)

@@ -61,6 +61,25 @@ const supportTableColumnsMapping = {
     playerSelfCleanses: 'Cleanses Self',
     playerOtherCleanses: 'Cleanses Other',
 };
+const defenseTableFields = baseTableFields.concat([
+    'playerDamageTaken',
+    'playerBarrierDamageTaken',
+    'playerAvgDamageTaken',
+    'playerDeaths',
+    'playerAvgDeathsPerSec',
+    'playerDowns',
+    'playerAvgDownsPerSec',
+]);
+const defenseTableColumnsMapping = {
+    ...baseTableColumnsMapping,
+    playerDamageTaken: 'Total Damage Taken',
+    playerAvgDamageTaken: 'Avg DPS Taken',
+    playerBarrierDamageTaken: 'Total Barrier Damage Taken',
+    playerDeaths: 'Total Deaths',
+    playerAvgDeathsPerSec: 'Deaths Per Sec',
+    playerDowns: 'Total Times Downed',
+    playerAvgDownsPerSec: 'Times Downed Per Sec',
+};
 
 const baseBoonTableFields = ['717', '718', '719', '725', '726', '740', '743', '873', '1122', '1187', '5974', '13017'];
 const baseBoonsColumnMapping = {
@@ -98,6 +117,7 @@ const tableIdToColumnTitlesMapping = {
     aggregateOverviewTable: overviewTableColumnsMapping,
     aggregateDamageTable: offenseTableColumnsMapping,
     aggregateSupportTable: supportTableColumnsMapping,
+    aggregateDefenseTable: defenseTableColumnsMapping,
     aggregateBoonsTable: boonsTableColumnsMapping,
     aggregateBoonsGroupTable: boonsGroupTableColumnsMapping,
     aggregateBoonsSquadTable: boonsSquadTableColumnsMapping,
@@ -151,6 +171,10 @@ function submitForm(e) {
                 //Support stats
                 var supportCols = getTableStatsColumns(window.logData, supportTableFields);
                 createTableFromJSON(window.logData, 'aggregateSupportTable', supportCols);
+
+                //Defense stats
+                var defenseCols = getTableStatsColumns(window.logData, defenseTableFields);
+                createTableFromJSON(window.logData, 'aggregateDefenseTable', defenseCols);
 
                 //Boon stats
                 var boonCols = getTableStatsColumns(window.logData, baseTableFields).concat(

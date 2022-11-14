@@ -1,4 +1,5 @@
 import { AggregatePlayerDamageStats, AggregatePlayerTargetDamageStats } from '../model/AggregatePlayerDamageStats';
+import { AggregatePlayerDefenseStats } from '../model/AggregatePlayerDefenseStats';
 import { AggregatedBuffUptimeStats, BuffUptimeStats, StrippedDownBuffUptimeStats } from '../model/JsonBuffStats';
 import { JsonPlayer } from '../model/JsonPlayer';
 
@@ -41,6 +42,15 @@ export const calculateAverageDistToSquad = (playerLogs: JsonPlayer[]): number =>
     );
 };
 
+// export const calculateTotalPlayerDeaths = (playerLogs: JsonPlayer[]): number => {
+//     const miscStats = playerLogs.flatMap((log) => log.defenses).filter((stats) => stats.deadCount != 0);
+//     return miscStats.length;
+// };
+// export const calculateTotalPlayerDowns = (playerLogs: JsonPlayer[]): number => {
+//     const miscStats = playerLogs.flatMap((log) => log.defenses).filter((stats) => stats.downCount != 0);
+//     return miscStats.length;
+// };
+
 export const calculatePlayerDamageStats = (playerLogs: JsonPlayer[]): AggregatePlayerDamageStats => {
     return playerLogs
         .flatMap((log) => log.dpsAll)
@@ -61,6 +71,32 @@ export const calculatePlayerDamageStats = (playerLogs: JsonPlayer[]): AggregateP
                 totalDamage: 0,
                 totalPowerDamage: 0,
                 totalCondiDamage: 0,
+            },
+        );
+};
+
+export const calculatePlayerDamageTakenStats = (playerLogs: JsonPlayer[]): AggregatePlayerDefenseStats => {
+    return playerLogs
+        .flatMap((log) => log.defenses)
+        .map((defenses) => {
+            return {
+                playerDamageTaken: defenses.damageTaken,
+                playerBarrierDamageTaken: defenses.damageBarrier,
+                playerDowns: defenses.downCount,
+                playerDeaths: defenses.deadCount,
+            };
+        })
+        .reduce(
+            (damageTotals, currentStats) => {
+                //@ts-ignore
+                Object.keys(damageTotals).forEach((key) => (damageTotals[key] += currentStats[key]));
+                return damageTotals;
+            },
+            {
+                playerDamageTaken: 0,
+                playerBarrierDamageTaken: 0,
+                playerDowns: 0,
+                playerDeaths: 0,
             },
         );
 };
