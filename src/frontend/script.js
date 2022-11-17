@@ -139,6 +139,10 @@ const msToTime = (s) => {
     return pad(mins) + ':' + pad(secs) + ':' + pad(ms, 3) + 'ms';
 };
 
+function isLocalhost() {
+    return location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+}
+
 function submitForm(e) {
     e.preventDefault();
     outputSection.classList.add('hidden');
@@ -148,7 +152,11 @@ function submitForm(e) {
     for (let i = 0; i < files.files.length; i++) {
         formData.append('files', files.files[i]);
     }
-    fetch('http://localhost:5000/log-aggregator', {
+
+    const url = isLocalhost()
+        ? 'http://localhost:5000/log-aggregator'
+        : 'http://gw2-aggregator.chaotically.me/log-aggregator';
+    fetch(url, {
         method: 'POST',
         body: formData,
     })

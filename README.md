@@ -2,6 +2,10 @@
 
 Thrown together in 3-4 nights, this is a hacky project with a simple front-end sample consumer showing what a log aggregator for gw2 logs _could_ look like. Some bugs at the moment with the boon averaging.
 
+## Prerequisites
+
+Ability to run yarn. See here for instructions to install yarn on windows: <https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable>
+
 ## Setup
 
 ```bash
@@ -9,6 +13,10 @@ git clone [reponame]
 cd [reponame]
 yarn install
 ```
+
+## READ ME FIRST!
+
+For most simple use cases, simply have the prerequisites and setup complete, and then run `yarn start:dev` from the root of the repo. Then navigate to `localhost:5000` and upload json files.
 
 ## Running locally:
 
@@ -63,6 +71,14 @@ Possible implementations:
 - [ ] buffs
 - [x] distance from pin
 - [x] target damage (damage done to the player agent's target, array of sequential targets over course of round)
+
+### Infrastructure and serving
+
+- [x] Deployed and available over http in ECS -- uploading JSON suuuucks
+- [ ] Find a nicer way to upload and parse, upload zetc files and parse on server seems easiest.
+- [ ] HTTPS + certificate
+- [ ] Automated deployments
+- [ ] Standalone executable
 
 ### Out of scope for now:
 
