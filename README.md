@@ -59,7 +59,7 @@ Possible implementations:
 - [x] time active
 - [x] fights participated in out of total
 - [x] average distance to commander
-- [ ] boonrip
+- [x] boonrip
 - [x] condis cleansed
 - [x] boon gen group
 - [ ] non same server players in squad added to data
@@ -98,8 +98,8 @@ Possible implementations:
 - [ ] Interrupts on enemy / Minute
 - [x] Cleanse Others
 - [x] Cleanse / Minute
-- [ ] Boonrip
-- [ ] Boonrip / Minute
+- [x] Boonrip
+- [x] Boonrip / Minute
 - [ ] Downed Targets
 - [x] Avg Distance Center Group
 - [x] Avg Distance Tag
