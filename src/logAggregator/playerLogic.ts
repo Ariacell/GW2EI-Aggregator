@@ -28,6 +28,13 @@ export const calculateTotalCleanses = (playerLogs: JsonPlayer[]): number => {
         .reduce((prev, curr) => prev + curr, 0);
 };
 
+export const calculateTotalStrips = (playerLogs: JsonPlayer[]): number => {
+    return playerLogs
+        .flatMap((log) => log.support)
+        .map((support) => support.boonStrips)
+        .reduce((prev, curr) => prev + curr, 0);
+};
+
 export const calculateAverageDistToCom = (playerLogs: JsonPlayer[]): number => {
     const miscStats = playerLogs.flatMap((log) => log.statsAll).filter((stats) => stats.distToCom != 0);
     return Math.round(

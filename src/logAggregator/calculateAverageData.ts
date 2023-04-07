@@ -9,7 +9,10 @@ export const calculatePlayerTimeAverageData = (
         playerAvgCleansePerSec: parseFloat(
             (playerData.playerCleanses / (playerData.playerActiveTime / 1000)).toFixed(2),
         ),
-        playerAvgDamageTaken: parseFloat((playerData.playerDamageTaken / (playerData.playerActiveTime / 1000)).toFixed(2)),
+        playerAvgStripsPerSec: parseFloat((playerData.playerStrips / (playerData.playerActiveTime / 1000)).toFixed(2)),
+        playerAvgDamageTaken: parseFloat(
+            (playerData.playerDamageTaken / (playerData.playerActiveTime / 1000)).toFixed(2),
+        ),
         playerAvgDownsPerSec: parseFloat((playerData.playerDowns / (playerData.playerActiveTime / 1000)).toFixed(5)),
         playerAvgDeathsPerSec: parseFloat((playerData.playerDeaths / (playerData.playerActiveTime / 1000)).toFixed(5)),
     };

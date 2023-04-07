@@ -16,9 +16,8 @@ import {
     calculateTotalActiveCombatTime,
     calculateTotalCleanses,
     calculateTotalOtherCleanse,
-    calculateTotalPlayerDeaths,
-    calculateTotalPlayerDowns,
     calculateTotalSelfCleanse,
+    calculateTotalStrips,
 } from './playerLogic';
 
 //Not currently in use as dangerous parsing of HTML to retrieve logs is not a great solution
@@ -56,6 +55,7 @@ export const aggregateJSONLogs = (req: any, res: any) => {
             playerName: key,
             playerRoundsActive: value.length,
             playerActiveTime: calculateTotalActiveCombatTime(value),
+            playerStrips: calculateTotalStrips(value),
             playerCleanses: calculateTotalCleanses(value),
             playerSelfCleanses: calculateTotalSelfCleanse(value),
             playerOtherCleanses: calculateTotalOtherCleanse(value),

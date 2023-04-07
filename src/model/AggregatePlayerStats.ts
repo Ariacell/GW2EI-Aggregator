@@ -33,6 +33,7 @@ const defaultAggregatePlayerBaseResponse: AggregatePlayerBaseResponse = {
     playerRoundsActive: 0,
     playerActiveTime: 0,
     playerDistanceToCom: 0,
+    playerStrips: 0,
     playerCleanses: 0,
     playerSelfCleanses: 0,
     playerOtherCleanses: 0,
