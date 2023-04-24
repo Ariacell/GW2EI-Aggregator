@@ -16,7 +16,7 @@ yarn install
 
 ## READ ME FIRST!
 
-For most simple use cases, simply have the prerequisites and setup complete, and then run `yarn start:dev` from the root of the repo. Then navigate to `localhost:5000` and upload json files. Note boon table is very much a work in progress.
+This branch is in the proces of being updated to serverless. See example flow: ![](documentation/serverless_seq_diagram.png)
 
 ## Running locally:
 
