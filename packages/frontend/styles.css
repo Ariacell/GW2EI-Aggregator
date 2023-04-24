@@ -1,0 +1,47 @@
+
+body {
+    background-color: rgb(235, 238, 232);
+}
+* {
+    box-sizing: border-box;
+}
+.container {
+    max-width: 500px;
+    margin: 60px auto;
+    border-radius: 4px;
+}
+.container h1 {
+    text-align: center;
+    color: rgb(34, 31, 31);
+}
+
+.hidden {
+    display: none;
+}
+
+form {
+    background-color: white;
+    padding: 30px;
+}
+form .input-group {
+    margin-bottom: 15px;
+}
+form label {
+    display: block;
+    margin-bottom: 10px;
+}
+form input {
+    padding: 12px 20px;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+.submit-btn {
+    width: 100%;
+    border: none;
+    background: rgb(37, 83, 3);
+    font-size: 18px;
+    color: white;
+    border-radius: 3px;
+    padding: 20px;
+    text-align: center;
+}
