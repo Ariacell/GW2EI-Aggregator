@@ -24,17 +24,16 @@ const player1 = {
 } as JsonPlayer;
 
 describe('group generation', () => {
-    player1.groupBuffs = [createDummyGroupSwiftnessBuffData(24.5)];
     const sampleLog1 = {
-        players: [player1],
+        players: [{ ...player1, groupBuffs: [createDummyGroupSwiftnessBuffData(28)] }],
     } as JsonLogData;
     const sampleLog2 = {
-        players: [player1],
+        players: [{ ...player1, groupBuffs: [createDummyGroupSwiftnessBuffData(10)] }],
     } as JsonLogData;
 
     it('should aggregated two logs', () => {
         const result = calculatePlayerGroupBoonStats([...sampleLog1.players, ...sampleLog2.players]);
         //@ts-ignore
-        expect(result[719].generation).toEqual(49);
+        expect(result[719].generation).toEqual(19);
     });
 });

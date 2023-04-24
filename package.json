@@ -7,11 +7,13 @@
         "start:dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
         "test": "jest ",
         "lint": "eslint src/**/*.ts",
+        "build": "pkg -t linux,macos,win src/index.ts --out-path dist",
         "format": "eslint src/**/*.ts --fix"
     },
     "author": "Aria J",
     "license": "GPL-3.0-or-later",
     "dependencies": {
+        "adm-zip": "^0.5.10",
         "cors": "^2.8.5",
         "dotenv": "^16.0.0",
         "express": "^4.17.3",
@@ -21,6 +23,7 @@
         "multer": "^1.4.4"
     },
     "devDependencies": {
+        "@types/adm-zip": "^0.5.0",
         "@types/cors": "^2.8.12",
         "@types/express": "^4.17.13",
         "@types/jest": "^27.4.1",

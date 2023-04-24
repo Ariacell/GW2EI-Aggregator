@@ -149,13 +149,24 @@ function isLocalhost() {
 
 function submitForm(e) {
     e.preventDefault();
-    outputSection.classList.add('hidden');
-    loadingSpinner.classList.replace('d-none', 'd-flex');
+
     const files = document.getElementById('files');
     const formData = new FormData();
+    if (files.files.length != 1) {
+        alert('Please make sure to only submit a single zipped file of json logs!');
+        return;
+    }
+    console.log(files.files[0]);
+    if (!['application/x-zip-compressed', 'application/zip'].includes(files.files[0].type)) {
+        alert(`File must be a zipped archive of json logs, found type: ${files.files[0].type}`);
+        return;
+    }
     for (let i = 0; i < files.files.length; i++) {
         formData.append('files', files.files[i]);
     }
+
+    outputSection.classList.add('hidden');
+    loadingSpinner.classList.replace('d-none', 'd-flex');
 
     const url = isLocalhost()
         ? 'http://localhost:5000/log-aggregator'

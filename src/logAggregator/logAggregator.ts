@@ -19,6 +19,7 @@ import {
     calculateTotalSelfCleanse,
     calculateTotalStrips,
 } from './playerLogic';
+import AdmZip from 'adm-zip';
 
 //Not currently in use as dangerous parsing of HTML to retrieve logs is not a great solution
 export const aggregateHtmlLogs = (req: any, res: any) => {
@@ -40,12 +41,20 @@ export const aggregateJSONLogs = (req: any, res: any) => {
     console.log('Attempting to aggregate JSON log files');
 
     const logData: any = [];
+    // const zip = fs.createReadStream(req.files[0].buffer).pipe(unzipper.Parse({ forceStream: true }));
+    const zip = new AdmZip(req.files[0].buffer);
+    const zipEntries = zip.getEntries();
 
-    req.files.forEach((file: any) => {
-        const jsonData = JSON.parse(file.buffer.toString());
+    zipEntries.forEach((file: any) => {
+        const jsonData = JSON.parse(file.getData().toString());
         console.log(`Parsed data for log recorded at: ${jsonData.timeStart} by ${jsonData.recordedBy}`);
         logData.push(jsonData);
     });
+    // req.files.forEach((file: any) => {
+    //     const jsonData = JSON.parse(file.buffer.toString());
+    //     console.log(`Parsed data for log recorded at: ${jsonData.timeStart} by ${jsonData.recordedBy}`);
+    //     logData.push(jsonData);
+    // });
 
     const players = groupDataByCharacterName(logData);
 
