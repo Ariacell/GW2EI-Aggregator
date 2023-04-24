@@ -43,9 +43,11 @@ export const aggregateJSONLogs = (req: any, res: any) => {
     const logData: any = [];
     // const zip = fs.createReadStream(req.files[0].buffer).pipe(unzipper.Parse({ forceStream: true }));
     const zip = new AdmZip(req.files[0].buffer);
+    console.log('Recieved zipped file: ', zip);
     const zipEntries = zip.getEntries();
 
     zipEntries.forEach((file: any) => {
+        console.log('Processing entry: ', file.getData());
         const jsonData = JSON.parse(file.getData().toString());
         console.log(`Parsed data for log recorded at: ${jsonData.timeStart} by ${jsonData.recordedBy}`);
         logData.push(jsonData);

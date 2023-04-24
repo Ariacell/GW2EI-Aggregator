@@ -8,8 +8,8 @@ resource "aws_ecs_task_definition" "backend_task" {
   network_mode             = "awsvpc"
 
   // Valid sizes are shown here: https://aws.amazon.com/fargate/pricing/
-  memory = "2048"
-  cpu    = "1024"
+  memory = "4096"
+  cpu    = "2048"
 
   // Fargate requires task definitions to have an execution role ARN to support ECR images
   execution_role_arn = aws_iam_role.ecs_role.arn
@@ -19,14 +19,24 @@ resource "aws_ecs_task_definition" "backend_task" {
     {
         "name": "${var.service_family_name}",
         "image": "${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-southeast-2.amazonaws.com/${var.service_family_name}:latest@${data.aws_ecr_image.service_image.image_digest}",
-        "memory": 2048,
+        "memory": 4096,
+        "cpu": 2048,
         "essential": true,
         "portMappings": [
-            {
-                "containerPort": 5000,
-                "hostPort": 5000
+          {
+            "containerPort": 5000,
+            "hostPort": 5000
+          }
+        ],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-create-group": "true",
+                "awslogs-group": "gw2-aggregator-chaotically",
+                "awslogs-region": "ap-southeast-2",
+                "awslogs-stream-prefix": "gw2-aggregator-task"
             }
-        ]
+        }
     }
 ]
 EOT

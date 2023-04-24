@@ -1,5 +1,5 @@
 resource "aws_iam_role" "ecs_role" {
-  name = "ecs_role_example_app"
+  name = "ecs_exec_role_gw2_aggregator"
 
   assume_role_policy = <<POLICY
 {
@@ -19,7 +19,7 @@ POLICY
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_policy_attachment" {
-  role = "${aws_iam_role.ecs_role.name}"
+  role = aws_iam_role.ecs_role.id
 
   // This policy adds logging + ecr permissions
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
