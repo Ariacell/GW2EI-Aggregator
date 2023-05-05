@@ -7,6 +7,13 @@ export const calculateTotalActiveCombatTime = (playerLogs: JsonPlayer[]): number
     return playerLogs.flatMap((log) => log.activeTimes).reduce((prev, curr) => prev + curr, 0);
 };
 
+export const getPlayerAccountName = (playerLogs: JsonPlayer[]): string => {
+    return playerLogs.flatMap((log) => log.account)[0];
+};
+export const getPlayerProfession = (playerLogs: JsonPlayer[]): string => {
+    return playerLogs.flatMap((log) => log.profession)[0];
+};
+
 export const calculateTotalSelfCleanse = (playerLogs: JsonPlayer[]): number => {
     return playerLogs
         .flatMap((log) => log.support)
@@ -39,6 +46,12 @@ export const calculateAverageDistToCom = (playerLogs: JsonPlayer[]): number => {
     const miscStats = playerLogs.flatMap((log) => log.statsAll).filter((stats) => stats.distToCom != 0);
     return Math.round(
         miscStats.map((stats) => stats.distToCom).reduce((prev, curr) => prev + curr, 0.0) / miscStats.length,
+    );
+};
+export const calculateAveragePlayerDownsContribution = (playerLogs: JsonPlayer[]): number => {
+    const miscStats = playerLogs.flatMap((log) => log.statsAll).filter((stats) => stats.downContribution != undefined);
+    return Math.round(
+        miscStats.map((stats) => stats.downContribution).reduce((prev, curr) => prev + curr, 0.0) / miscStats.length,
     );
 };
 

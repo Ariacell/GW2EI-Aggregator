@@ -10,6 +10,7 @@ import { groupDataByCharacterName } from './groupDataByCharacterName';
 import {
     calculateAverageDistToCom,
     calculateAverageDistToSquad,
+    calculateAveragePlayerDownsContribution,
     calculatePlayerDamageStats,
     calculatePlayerDamageTakenStats as calculatePlayerDefensiveStats,
     calculatePlayerTargetDamageStats,
@@ -18,6 +19,8 @@ import {
     calculateTotalOtherCleanse,
     calculateTotalSelfCleanse,
     calculateTotalStrips,
+    getPlayerAccountName,
+    getPlayerProfession,
 } from './playerLogic';
 import AdmZip from 'adm-zip';
 
@@ -64,6 +67,8 @@ export const aggregateJSONLogs = (req: any, res: any) => {
     for (const [key, value] of Object.entries(players)) {
         strippedDownStats.push({
             playerName: key,
+            playerAccount: getPlayerAccountName(value),
+            playerProfession: getPlayerProfession(value),
             playerRoundsActive: value.length,
             playerActiveTime: calculateTotalActiveCombatTime(value),
             playerStrips: calculateTotalStrips(value),
@@ -71,6 +76,7 @@ export const aggregateJSONLogs = (req: any, res: any) => {
             playerSelfCleanses: calculateTotalSelfCleanse(value),
             playerOtherCleanses: calculateTotalOtherCleanse(value),
             playerDistanceToCom: calculateAverageDistToCom(value),
+            playerDownsContribution: calculateAveragePlayerDownsContribution(value),
             playerDistanceToStack: calculateAverageDistToSquad(value),
             // 'playerAvgDamageTaken',
             playerBoons: { ...calculatePlayerBoonStats(value) },

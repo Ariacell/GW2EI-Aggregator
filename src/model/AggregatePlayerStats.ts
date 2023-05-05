@@ -6,8 +6,10 @@ import { AggregatedBuffGenerationStats, AggregatedBuffUptimeStats } from './Json
 
 export type AggregatePlayerBaseStats = {
     playerName: string;
+    playerAccount: string;
+    playerProfession: string;
     playerRoundsActive: number;
-    playerActiveTime: number;
+    playerActiveTime: number; // Time active in seconds
 };
 
 export type AggregatePlayerOverviewStats = {
@@ -30,6 +32,8 @@ export type AggregatePlayerBaseResponse = AggregatePlayerBaseStats &
 
 const defaultAggregatePlayerBaseResponse: AggregatePlayerBaseResponse = {
     playerName: 'some player',
+    playerAccount: 'someaccount.1234',
+    playerProfession: 'Commando',
     playerRoundsActive: 0,
     playerActiveTime: 0,
     playerDistanceToCom: 0,

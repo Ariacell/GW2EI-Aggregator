@@ -20,18 +20,18 @@ describe('calculatePlayerTimeAverageData', () => {
         });
 
         expect(calculatePlayerTimeAverageData(playerData)).toEqual(
-            expect.objectContaining({ playerAvgCleansePerSec: 1 }),
+            expect.objectContaining({ playerAvgCleansePerMin: 60 }),
         );
     });
 
-    it('should round average damage per second to 2 decimal places', () => {
+    it('should round average damage per second to 5 decimal places', () => {
         const playerData: AggregatePlayerBaseResponse = buildAggregatePlayerBaseResponse({
             totalDamage: 1234,
             playerActiveTime: 1023, //time in ms
         });
 
         expect(calculatePlayerTimeAverageData(playerData)).toEqual(
-            expect.objectContaining({ playerAvgDamagePerSec: 1206.26 }),
+            expect.objectContaining({ playerAvgDamagePerSec: 1206.25611 }),
         );
     });
 
@@ -42,7 +42,7 @@ describe('calculatePlayerTimeAverageData', () => {
         });
 
         expect(calculatePlayerTimeAverageData(playerData)).toEqual(
-            expect.objectContaining({ playerAvgCleansePerSec: 33.97 }),
+            expect.objectContaining({ playerAvgCleansePerMin: 2037.96 }),
         );
     });
 });

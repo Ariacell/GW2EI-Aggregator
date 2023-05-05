@@ -4,9 +4,11 @@ const loadingSpinner = document.getElementById('loadingSpinner');
 
 form.addEventListener('submit', submitForm);
 
-const baseTableFields = ['playerName', 'playerRoundsActive', 'playerActiveTime'];
+const baseTableFields = ['playerName', 'playerAccount', 'playerProfession', 'playerRoundsActive', 'playerActiveTime'];
 const baseTableColumnsMapping = {
     playerName: 'Player Name',
+    playerAccount: 'Player Account',
+    playerProfession: 'Profession',
     playerRoundsActive: 'Rounds Active',
     playerActiveTime: 'Active Time',
 };
@@ -14,6 +16,7 @@ const baseTableColumnsMapping = {
 const overviewTableFields = baseTableFields.concat([
     'playerDistanceToCom',
     'playerDistanceToStack',
+    'playerDownsContribution',
     'totalDamage',
     'targetDamage',
 ]);
@@ -21,10 +24,10 @@ const overviewTableColumnsMapping = {
     ...baseTableColumnsMapping,
     playerDistanceToCom: 'Average Comm Distance',
     playerDistanceToStack: 'Average Stack Distance',
+    playerDownsContribution: 'Average Downs Contribution',
     totalDamage: 'Total Damage',
     targetDamage: 'Total Target Damage',
     //Damage taken
-    //Downs contribution
     //Average Dps
 };
 
@@ -50,18 +53,18 @@ const offenseTableColumnsMapping = {
 
 const supportTableFields = baseTableFields.concat([
     'playerStrips',
-    'playerAvgStripsPerSec',
+    'playerAvgStripsPerMin',
     'playerCleanses',
-    'playerAvgCleansePerSec',
+    'playerAvgCleansePerMin',
     'playerSelfCleanses',
     'playerOtherCleanses',
 ]);
 const supportTableColumnsMapping = {
     ...baseTableColumnsMapping,
     playerStrips: 'Strips Total',
-    playerAvgStripsPerSec: 'Strips Per Sec',
+    playerAvgStripsPerMin: 'Strips Per Min',
     playerCleanses: 'Cleanses Total',
-    playerAvgCleansePerSec: 'Average Cleanse Per Sec',
+    playerAvgCleansePerMin: 'Average Cleanse Per Min',
     playerSelfCleanses: 'Cleanses Self',
     playerOtherCleanses: 'Cleanses Other',
 };
@@ -70,9 +73,9 @@ const defenseTableFields = baseTableFields.concat([
     'playerBarrierDamageTaken',
     'playerAvgDamageTaken',
     'playerDeaths',
-    'playerAvgDeathsPerSec',
+    'playerAvgDeathsPerMin',
     'playerDowns',
-    'playerAvgDownsPerSec',
+    'playerAvgDownsPerMin',
 ]);
 const defenseTableColumnsMapping = {
     ...baseTableColumnsMapping,
@@ -80,12 +83,26 @@ const defenseTableColumnsMapping = {
     playerAvgDamageTaken: 'Avg DPS Taken',
     playerBarrierDamageTaken: 'Total Barrier Damage Taken',
     playerDeaths: 'Total Deaths',
-    playerAvgDeathsPerSec: 'Deaths Per Sec',
+    playerAvgDeathsPerMin: 'Deaths Per Min',
     playerDowns: 'Total Times Downed',
-    playerAvgDownsPerSec: 'Times Downed Per Sec',
+    playerAvgDownsPerMin: 'Times Downed Per Min',
 };
 
-const baseBoonTableFields = ['717', '718', '719', '725', '726', '740', '743', '873', '1122', '1187', '5974', '13017'];
+const baseBoonTableFields = [
+    '717',
+    '718',
+    '719',
+    '725',
+    '726',
+    '740',
+    '743',
+    '873',
+    '1122',
+    '1187',
+    '5974',
+    '13017',
+    '26980',
+];
 const baseBoonsColumnMapping = {
     717: 'Protection',
     718: 'Regeneration',
@@ -99,6 +116,7 @@ const baseBoonsColumnMapping = {
     1187: 'Quickness',
     5974: 'Superspeed',
     13017: 'Stealth',
+    26980: 'Resistance',
 };
 const boonsTableFields = baseTableFields.concat(baseBoonTableFields);
 const boonsTableColumnsMapping = {
@@ -284,6 +302,7 @@ function createTableFromJSON(jsonData, tableId, tableColumns) {
 
     for (var i = 0; i < tableColumns.length; i++) {
         var headingCell = document.createElement('td'); // TABLE HEADER.
+        headingCell.setAttribute('onclick', `sortTable(${i})`);
         headingCell.innerHTML = tableIdToColumnTitlesMapping[tableId][tableColumns[i]];
         headerRow.appendChild(headingCell);
     }

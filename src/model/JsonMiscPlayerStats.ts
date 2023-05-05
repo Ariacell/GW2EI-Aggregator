@@ -14,6 +14,7 @@ export type JsonMiscPlayerStats = {
     directDamageCount: number;
     connectedDirectDamageCount: number;
     connectedDamageCount: number;
+    downContribution: number;
     critableDirectDamageCount: number;
     criticalRate: number;
     criticalDmg: number;
@@ -45,6 +46,7 @@ export const defaultJsonMiscPlayerStats: JsonMiscPlayerStats = {
     directDamageCount: 0,
     connectedDirectDamageCount: 0,
     connectedDamageCount: 0,
+    downContribution: 0,
     critableDirectDamageCount: 0,
     criticalRate: 0,
     criticalDmg: 0,
