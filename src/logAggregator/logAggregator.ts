@@ -1,4 +1,3 @@
-import { JSDOM } from 'jsdom';
 import { AggregateLogResponse, AggregatePlayerBaseResponse } from '../model/AggregatePlayerStats';
 import {
     calculatePlayerBoonStats,
@@ -25,21 +24,6 @@ import {
 } from './playerLogic';
 import AdmZip from 'adm-zip';
 
-//Not currently in use as dangerous parsing of HTML to retrieve logs is not a great solution
-export const aggregateHtmlLogs = (req: any, res: any) => {
-    console.log('Attempting to aggregate html log files');
-
-    const logData: any = [];
-
-    req.files.forEach((file: any) => {
-        let data = file.buffer.toString();
-        const dom: JSDOM = new JSDOM(`${data}`, { runScripts: 'dangerously' });
-        logData.push(dom.window.logData);
-    });
-
-    return logData;
-};
-
 //
 export const aggregateJSONLogs = (req: any, res: any) => {
     console.log('Attempting to aggregate JSON log files');
@@ -49,18 +33,12 @@ export const aggregateJSONLogs = (req: any, res: any) => {
     const zip = new AdmZip(req.files[0].buffer);
     console.log('Recieved zipped file: ', zip);
     const zipEntries = zip.getEntries();
-
     zipEntries.forEach((file: any) => {
         console.log('Processing entry: ', file.getData());
         const jsonData = JSON.parse(file.getData().toString());
         console.log(`Parsed data for log recorded at: ${jsonData.timeStart} by ${jsonData.recordedBy}`);
         logData.push(jsonData);
     });
-    // req.files.forEach((file: any) => {
-    //     const jsonData = JSON.parse(file.buffer.toString());
-    //     console.log(`Parsed data for log recorded at: ${jsonData.timeStart} by ${jsonData.recordedBy}`);
-    //     logData.push(jsonData);
-    // });
 
     const players = groupDataByCharacterName(logData);
 

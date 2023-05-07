@@ -6,9 +6,21 @@
     "scripts": {
         "start:dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
         "test": "jest ",
+        "typecheck": "tsc --noEmit",
         "lint": "eslint src/**/*.ts",
-        "build": "pkg -t linux,macos,win src/index.ts --out-path dist",
+        "build": "rm -rf ./build && node build.cjs && cp -r ./src/frontend ./build/",
+        "package": "pkg build/bundle.js -c pkg.json",
         "format": "eslint src/**/*.ts --fix"
+    },
+    "type": "module",
+    "pkg": {
+        "assets": "build/frontend/*",
+        "targets": [
+            "linux-x64",
+            "macos-x64",
+            "win-x64"
+        ],
+        "outputPath": "dist"
     },
     "author": "Aria J",
     "license": "GPL-3.0-or-later",
@@ -32,8 +44,10 @@
         "@types/node": "^17.0.24",
         "@typescript-eslint/eslint-plugin": "^5.19.0",
         "@typescript-eslint/parser": "^5.19.0",
+        "esbuild": "^0.17.18",
         "eslint": "^8.13.0",
         "jest": "^27.5.1",
+        "pkg": "^5.8.1",
         "prettier": "^2.6.2",
         "ts-jest": "^27.1.4",
         "ts-node-dev": "^1.1.8",

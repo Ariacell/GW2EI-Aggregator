@@ -8,3 +8,6 @@ terraform/.terraform.lock.hcl
 terraform/tfplan
 terraform/terraform.tfstate*
 terraform/terraform.tfstate.backup
+
+build/
+dist/
