@@ -9,10 +9,8 @@ const app = startServer();
 app.use(express.static(__dirname + '/frontend'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/frontend/index.html'));
 
-//Use express app as intermediary while developing aggregator logic
-var storage = multer.memoryStorage();
-var upload = multer({ storage: storage });
+//Use express app as intermediary while developing aggregator logic;
 
-app.post('/log-aggregator', upload.array('files'), (req, res) => {
+app.post('/log-aggregator', multer({ storage: multer.memoryStorage() }).array('files'), (req, res) => {
     res.send(aggregateJSONLogs(req, res));
 });

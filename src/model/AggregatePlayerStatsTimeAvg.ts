@@ -1,4 +1,5 @@
 export type AggregatePlayerStatsTimeAvg = {
+    playerAvgDodgeCount: number;
     playerAvgDamagePerSec: number;
     playerAvgCleansePerMin: number;
     playerAvgStripsPerMin: number;

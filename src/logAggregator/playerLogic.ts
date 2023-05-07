@@ -100,6 +100,7 @@ export const calculatePlayerDamageTakenStats = (playerLogs: JsonPlayer[]): Aggre
         .flatMap((log) => log.defenses)
         .map((defenses) => {
             return {
+                dodgeCount: defenses.dodgeCount,
                 playerDamageTaken: defenses.damageTaken,
                 playerBarrierDamageTaken: defenses.damageBarrier,
                 playerDowns: defenses.downCount,
@@ -113,6 +114,7 @@ export const calculatePlayerDamageTakenStats = (playerLogs: JsonPlayer[]): Aggre
                 return damageTotals;
             },
             {
+                dodgeCount: 0,
                 playerDamageTaken: 0,
                 playerBarrierDamageTaken: 0,
                 playerDowns: 0,

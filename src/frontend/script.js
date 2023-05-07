@@ -74,6 +74,8 @@ const defenseTableFields = baseTableFields.concat([
     'playerAvgDamageTaken',
     'playerDeaths',
     'playerAvgDeathsPerMin',
+    'dodgeCount',
+    'playerAvgDodgeCount',
     'playerDowns',
     'playerAvgDownsPerMin',
 ]);
@@ -84,6 +86,8 @@ const defenseTableColumnsMapping = {
     playerBarrierDamageTaken: 'Total Barrier Damage Taken',
     playerDeaths: 'Total Deaths',
     playerAvgDeathsPerMin: 'Deaths Per Min',
+    dodgeCount: 'Total Dodges',
+    playerAvgDodgeCount: 'Dodges Per Min',
     playerDowns: 'Total Times Downed',
     playerAvgDownsPerMin: 'Times Downed Per Min',
 };
