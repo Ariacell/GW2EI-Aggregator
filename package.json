@@ -1,6 +1,6 @@
 {
     "name": "gw2ei-aggregator",
-    "version": "0.0.1",
+    "version": "0.1.4",
     "description": "A tool for aggregating multiple GW2EI parsed combat logs and for at-a-glance insights",
     "main": "index.js",
     "scripts": {
