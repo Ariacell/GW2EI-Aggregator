@@ -41,6 +41,12 @@ export const calculateTotalStrips = (playerLogs: JsonPlayer[]): number => {
         .map((support) => support.boonStrips)
         .reduce((prev, curr) => prev + curr, 0);
 };
+export const calculateTotalInterrupts = (playerLogs: JsonPlayer[]): number => {
+    return playerLogs
+        .flatMap((log) => log.statsAll)
+        .map((allStats) => allStats.interrupts)
+        .reduce((prev, curr) => prev + curr, 0);
+};
 
 export const calculateAverageDistToCom = (playerLogs: JsonPlayer[]): number => {
     const miscStats = playerLogs.flatMap((log) => log.statsAll).filter((stats) => stats.distToCom != 0);

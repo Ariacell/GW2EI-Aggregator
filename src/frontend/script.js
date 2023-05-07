@@ -54,6 +54,8 @@ const offenseTableColumnsMapping = {
 const supportTableFields = baseTableFields.concat([
     'playerStrips',
     'playerAvgStripsPerMin',
+    'playerInterrupts',
+    'playerAvgInterrupts',
     'playerCleanses',
     'playerAvgCleansePerMin',
     'playerSelfCleanses',
@@ -63,8 +65,10 @@ const supportTableColumnsMapping = {
     ...baseTableColumnsMapping,
     playerStrips: 'Strips Total',
     playerAvgStripsPerMin: 'Strips Per Min',
+    playerInterrupts: 'Interrupts Total',
+    playerAvgInterrupts: 'Interrupts Per Min',
     playerCleanses: 'Cleanses Total',
-    playerAvgCleansePerMin: 'Average Cleanse Per Min',
+    playerAvgCleansePerMin: 'Cleanse Per Min',
     playerSelfCleanses: 'Cleanses Self',
     playerOtherCleanses: 'Cleanses Other',
 };

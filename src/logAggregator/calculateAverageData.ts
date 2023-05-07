@@ -5,6 +5,9 @@ export const calculatePlayerTimeAverageData = (
     playerData: AggregatePlayerBaseResponse,
 ): AggregatePlayerStatsTimeAvg => {
     return {
+        playerAvgInterrupts: parseFloat(
+            ((playerData.playerInterrupts / (playerData.playerActiveTime / 1000)) * 60).toFixed(2),
+        ),
         playerAvgDodgeCount: parseFloat(
             ((playerData.dodgeCount / (playerData.playerActiveTime / 1000)) * 60).toFixed(2),
         ),
