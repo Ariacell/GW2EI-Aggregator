@@ -1,6 +1,6 @@
 # Aggregate WvW fight logs
 
-This tool is intended for use by WVW groups to evaluate their performance in small scale/GvG engagements. To a lesser extent it could be useful for large scale fights, or PvE aggregate logs, although this is not directly supported and may have errors due to phasing of PvE bosses taht does not occur in WvW.
+This tool is intended for use by WVW groups to evaluate their performance in small scale/GvG engagements. To a lesser extent it could be useful for large scale fights, or PvE aggregate logs, although this is not directly supported and may have errors due to phasing of PvE bosses that does not occur in WvW.
 
 # Usage guide
 
