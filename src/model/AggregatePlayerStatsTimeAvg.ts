@@ -7,4 +7,5 @@ export type AggregatePlayerStatsTimeAvg = {
     playerAvgDamageTaken: number;
     playerAvgDownsPerMin: number;
     playerAvgDeathsPerMin: number;
+    playerAvgDownsContributionPerMin: number;
 };

@@ -27,5 +27,8 @@ export const calculatePlayerTimeAverageData = (
         playerAvgDeathsPerMin: parseFloat(
             ((playerData.playerDeaths / (playerData.playerActiveTime / 1000)) * 60).toFixed(2),
         ),
+        playerAvgDownsContributionPerMin: parseFloat(
+            ((playerData.totalDownsContribution / (playerData.playerActiveTime / 1000)) * 60).toFixed(2),
+        ),
     };
 };

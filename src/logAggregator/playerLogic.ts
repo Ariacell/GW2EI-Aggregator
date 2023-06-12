@@ -60,6 +60,10 @@ export const calculateAveragePlayerDownsContribution = (playerLogs: JsonPlayer[]
         miscStats.map((stats) => stats.downContribution).reduce((prev, curr) => prev + curr, 0.0) / miscStats.length,
     );
 };
+export const calculateTotalPlayerDownsContribution = (playerLogs: JsonPlayer[]): number => {
+    const miscStats = playerLogs.flatMap((log) => log.statsAll).filter((stats) => stats.downContribution != undefined);
+    return miscStats.map((stats) => stats.downContribution).reduce((prev, curr) => prev + curr, 0.0);
+};
 
 export const calculateAverageDistToSquad = (playerLogs: JsonPlayer[]): number => {
     const miscStats = playerLogs.flatMap((log) => log.statsAll).filter((stats) => stats.stackDist != 0);
@@ -79,12 +83,12 @@ export const calculateAverageDistToSquad = (playerLogs: JsonPlayer[]): number =>
 
 export const calculatePlayerDamageStats = (playerLogs: JsonPlayer[]): AggregatePlayerDamageStats => {
     return playerLogs
-        .flatMap((log) => log.dpsAll)
-        .map((dpsStats) => {
+        .map((log) => {
             return {
-                totalDamage: dpsStats.damage,
-                totalPowerDamage: dpsStats.powerDamage,
-                totalCondiDamage: dpsStats.condiDamage,
+                totalDamage: log.dpsAll[0].damage,
+                totalDownsContribution: log.statsAll[0].downContribution,
+                totalPowerDamage: log.dpsAll[0].powerDamage,
+                totalCondiDamage: log.dpsAll[0].condiDamage,
             };
         })
         .reduce(
@@ -95,6 +99,7 @@ export const calculatePlayerDamageStats = (playerLogs: JsonPlayer[]): AggregateP
             },
             {
                 totalDamage: 0,
+                totalDownsContribution: 0,
                 totalPowerDamage: 0,
                 totalCondiDamage: 0,
             },

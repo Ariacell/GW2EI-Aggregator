@@ -17,6 +17,7 @@ const overviewTableFields = baseTableFields.concat([
     'playerDistanceToCom',
     'playerDistanceToStack',
     'playerDownsContribution',
+    'playerAvgDownsContributionPerMin',
     'totalDamage',
     'targetDamage',
 ]);
@@ -24,7 +25,8 @@ const overviewTableColumnsMapping = {
     ...baseTableColumnsMapping,
     playerDistanceToCom: 'Average Comm Distance',
     playerDistanceToStack: 'Average Stack Distance',
-    playerDownsContribution: 'Average Downs Contribution',
+    playerDownsContribution: 'Average Downs Contribution Per Round',
+    playerAvgDownsContributionPerMin: 'Downs Contribution Per Min',
     totalDamage: 'Total Damage',
     targetDamage: 'Total Target Damage',
     //Damage taken

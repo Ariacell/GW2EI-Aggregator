@@ -48,6 +48,7 @@ const defaultAggregatePlayerBaseResponse: AggregatePlayerBaseResponse = {
     playerDamageTaken: 0,
     playerBarrierDamageTaken: 0,
     totalDamage: 0,
+    totalDownsContribution: 0,
     totalPowerDamage: 0,
     totalCondiDamage: 0,
     totalTargetDamage: 0,

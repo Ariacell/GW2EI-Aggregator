@@ -1,5 +1,6 @@
 export type AggregatePlayerDamageStats = {
     totalDamage: number;
+    totalDownsContribution: number;
     totalPowerDamage: number;
     totalCondiDamage: number;
 };
