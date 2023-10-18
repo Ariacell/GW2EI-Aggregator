@@ -62,6 +62,8 @@ const supportTableFields = baseTableFields.concat([
     'playerAvgCleansePerMin',
     'playerSelfCleanses',
     'playerOtherCleanses',
+    'playerResurrects',
+    'playerResurrectTime'
 ]);
 const supportTableColumnsMapping = {
     ...baseTableColumnsMapping,
@@ -73,6 +75,8 @@ const supportTableColumnsMapping = {
     playerAvgCleansePerMin: 'Cleanse Per Min',
     playerSelfCleanses: 'Cleanses Self',
     playerOtherCleanses: 'Cleanses Other',
+    playerResurrects: 'Total Resurrects',
+    playerResurrectTime: 'Total Resurrect Time (secs)'
 };
 const defenseTableFields = baseTableFields.concat([
     'playerDamageTaken',
@@ -437,4 +441,22 @@ function createBoonGenerationTableFromJSON(jsonData, tableId, tableColumns, data
         paging: false,
         dom: 'lrt',
     });
+}
+
+function exportCriticalDataCsv() {
+    let data = getLogData();
+    let headersArray = overviewTableFields
+        .concat(defenseTableFields)
+        .concat(offenseTableFields)
+        .concat(supportTableFields)
+        .filter((entry) => entry != 'targetDamage'); //Remove target damage as not useful in final export
+    let headers = [...new Set(headersArray)];
+    const seperator = ',';
+    const csv = [
+        headers.join(seperator),
+        ...data.map((row) => headers.map((field) => `${row[field]}`).join(seperator)),
+    ];
+    let csvContent = 'data:text/csv;charset=utf-8,' + csv.join('\n');
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
 }

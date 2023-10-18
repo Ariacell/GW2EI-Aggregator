@@ -44,6 +44,8 @@ const defaultAggregatePlayerBaseResponse: AggregatePlayerBaseResponse = {
     playerOtherCleanses: 0,
     playerDowns: 0,
     dodgeCount: 0,
+    playerResurrects: 0,
+    playerResurrectTime: 0,
     playerDeaths: 0,
     playerDamageTaken: 0,
     playerBarrierDamageTaken: 0,

@@ -21,6 +21,19 @@ export const calculateTotalSelfCleanse = (playerLogs: JsonPlayer[]): number => {
         .reduce((prev, curr) => prev + curr, 0);
 };
 
+export const calculateTotalResurrects = (playerLogs: JsonPlayer[]): number => {
+    return playerLogs
+        .flatMap((log) => log.support)
+        .map((support) => support.resurrects)
+        .reduce((prev, curr) => prev + curr, 0);
+};
+export const calculateTotalResurrectTime = (playerLogs: JsonPlayer[]): number => {
+    return playerLogs
+        .flatMap((log) => log.support)
+        .map((support) => support.resurrectTime)
+        .reduce((prev, curr) => prev + curr, 0);
+};
+
 export const calculateTotalOtherCleanse = (playerLogs: JsonPlayer[]): number => {
     return playerLogs
         .flatMap((log) => log.support)
